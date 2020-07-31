@@ -1,31 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Mover : MonoBehaviour
 {
-    [SerializeField]
-    private Transform target;
-
-    private Ray lastRay;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             MoveToCursor();
         }
-        Debug.DrawRay(lastRay.origin, lastRay.direction * 100);
+        UpdateAnimator();
     }
 
+    // move the player to the cursor when left click 
     private void MoveToCursor()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -34,7 +24,16 @@ public class Mover : MonoBehaviour
 
         if (hasHit)
         {
-            GetComponent<NavMeshAgent>().destination = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+            GetComponent<NavMeshAgent>().destination = hit.point;
         }
+    }
+
+    // update the animator depending on speed using blend tree
+    private void UpdateAnimator()
+    {
+        Vector3 velocity = GetComponent<NavMeshAgent>().velocity;                   // getting velocity from the nav mesh agent
+        Vector3 localVelocity = transform.InverseTransformDirection(velocity);      // converting the velocity to local space  
+        float speed = localVelocity.z;                                              // storing speed value from z axis (only anxis that interests us for animation, moving forward or not)
+        GetComponent<Animator>().SetFloat("Forward Speed", speed);                  // setting the blend speed value
     }
 }
