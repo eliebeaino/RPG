@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace RPG.Combat
+namespace RPG.Core
 {
     public class Health : MonoBehaviour
     {
@@ -17,11 +17,13 @@ namespace RPG.Combat
             if (health == 0 && !isDead) StartCoroutine(Die());
         }
 
-        // set the death animation and destory the enemy after corpse timer delay
+        // set the death animation - cancel the current action in place from the scheduler - destory the enemy after corpse timer delay
         IEnumerator Die()
         {
             isDead = true;
             GetComponent<Animator>().SetTrigger("die");
+            GetComponent<ActionScheduler>().CancelCurrentAction();
+
             yield return new WaitForSeconds(CorpseTimer);
             Destroy(gameObject);
         }

@@ -1,20 +1,25 @@
 ﻿using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
+using RPG.Core;
 
 namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
         private Mover mover;
+        Health health;
 
         private void Start()
         {
             mover = GetComponent<Mover>();
+            health = GetComponent<Health>();
         }
 
         void Update()
         {
+            if (health.IsDead()) return; // stops everything when dead
+
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
             print("nothing else to do");

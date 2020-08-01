@@ -1,4 +1,5 @@
 ﻿using RPG.Combat;
+using RPG.Core;
 using UnityEngine;
 
 namespace RPG.Control
@@ -9,15 +10,19 @@ namespace RPG.Control
 
         GameObject player;
         Fighter fighter;
+        Health health;
 
         private void Start()
         {
             fighter = GetComponent<Fighter>();
             player = GameObject.FindWithTag("Player");
+            health = GetComponent<Health>();
         }
 
         private void Update()
         {
+            if (health.IsDead()) return;  // stops everything when dead
+
             if (InAttackRange() && fighter.CanAttack(player))
             {
                 fighter.Attack(player);
@@ -38,6 +43,7 @@ namespace RPG.Control
         // draw the radius within unity
         private void OnDrawGizmos()
         {
+            Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, chaseDistance);
         }
     }
