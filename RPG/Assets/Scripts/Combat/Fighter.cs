@@ -10,7 +10,7 @@ namespace RPG.Combat
         [SerializeField] private float timeBetweenAttacks = 1f;
         [SerializeField] private float weaponDamage = 10f;
 
-        float timeSinceLastAttack = 0;
+        float timeSinceLastAttack = Mathf.Infinity;  // allows attack directly upon first contact
         Health target;
         Mover mover;
         Animator animator;
@@ -58,7 +58,7 @@ namespace RPG.Combat
         }
 
         // check if target isdead to allow attacking or not
-        public bool CanAttack(CombatTarget combatTarget)
+        public bool CanAttack(GameObject combatTarget)
         {
             if (combatTarget == null) return false;
             Health targetToTest = combatTarget.GetComponent<Health>();
@@ -67,7 +67,7 @@ namespace RPG.Combat
 
         // set the target - from the playercontroller upon input 
         // and cancel previous action (if any)
-        public void Attack(CombatTarget combatTarget)
+        public void Attack(GameObject combatTarget)
         {
             GetComponent<ActionScheduler>().StartAction(this);
             target = combatTarget.GetComponent<Health>();       
