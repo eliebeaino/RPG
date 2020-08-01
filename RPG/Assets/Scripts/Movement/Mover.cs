@@ -18,6 +18,7 @@ namespace RPG.Movement
             UpdateAnimator();
         }
 
+        // start the move action and cancel previous action (if any)
         public void StartMoveAction(Vector3 destination)
         {
             GetComponent<ActionScheduler>().StartAction(this);
@@ -31,6 +32,7 @@ namespace RPG.Movement
             NavMeshAgent.isStopped = false;
         }
 
+        // stops the movement of this character
         public void Cancel()
         {
             NavMeshAgent.isStopped = true;
