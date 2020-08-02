@@ -6,6 +6,8 @@ namespace RPG.Movement
 {
     public class Mover : MonoBehaviour, IAction
     {
+        [SerializeField] float maxSpeed = 5.66f;
+
         NavMeshAgent navMeshAgent;
         Health health;
 
@@ -27,7 +29,7 @@ namespace RPG.Movement
         {
             GetComponent<ActionScheduler>().StartAction(this);
             MoveTo(destination);
-        }    
+        }
 
         // move the object towards the destination point
         public void MoveTo(Vector3 destination)
@@ -40,6 +42,11 @@ namespace RPG.Movement
         public void Cancel()
         {
             navMeshAgent.isStopped = true;
+        }
+
+        public void SetSpeed(float speedFactor)
+        {
+            navMeshAgent.speed = maxSpeed * speedFactor;
         }
 
         // update the animator depending on speed using blend tree

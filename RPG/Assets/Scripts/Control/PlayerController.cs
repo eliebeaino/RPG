@@ -2,11 +2,14 @@
 using RPG.Movement;
 using RPG.Combat;
 using RPG.Core;
+using System;
 
 namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField] float movementSpeedFactor = 0.7f;
+
         private Mover mover;
         Health health;
 
@@ -20,9 +23,15 @@ namespace RPG.Control
         {
             if (health.IsDead()) return; // stops everything when dead
 
+            SetSpeed();
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
             print("nothing else to do");
+        }
+
+        private void SetSpeed()
+        {
+            mover.SetSpeed(movementSpeedFactor);
         }
 
         // check if targetting a - LIVING - enemy and attack it

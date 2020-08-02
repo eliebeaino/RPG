@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3627b4912544a43942424bb56bfd6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeedFactor: 0.7
 --- !u!1001 &1074109721891410231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -81,6 +82,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 879574702, guid: 734695941bc39a14cb014ab2d6633505, type: 3}
+      propertyPath: maxSpeed
+      value: 5.66
+      objectReference: {fileID: 0}
     - target: {fileID: 879574703, guid: 734695941bc39a14cb014ab2d6633505, type: 3}
       propertyPath: m_Speed
       value: 4

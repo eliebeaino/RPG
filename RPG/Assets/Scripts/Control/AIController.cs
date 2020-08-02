@@ -8,11 +8,17 @@ namespace RPG.Control
 {
     public class AIController : MonoBehaviour
     {
+        [Header("General")]
         [SerializeField] float chaseDistance = 5f;
         [SerializeField] float suspicionTime = 3f;
+        [SerializeField] float chaseSpeedFactor = 0.5f;
+        [SerializeField] float maxSpeedFactor = 1f; // unused
+
+        [Header("Patrol:")]
         [SerializeField] PatrolPath patrolPath;
         [SerializeField] float waypointTolerance = 1f;
         [SerializeField] float waypointDwellTime = 3f;
+        [SerializeField] float patrolSpeedFactor = 0.2f;
 
         GameObject player;
         Fighter fighter;
@@ -64,6 +70,7 @@ namespace RPG.Control
         {
             timeSinceLastSawPlayer = 0;
             fighter.Attack(player);
+            mover.SetSpeed(chaseSpeedFactor);
         }
 
         private void SuspiciousBehavior()
@@ -81,11 +88,11 @@ namespace RPG.Control
                 if (AtWaypoint())
                 {
                     CycleWaypoint();
-                    timeSinceArrivedAtWaypoint = 0;
-                    
+                    timeSinceArrivedAtWaypoint = 0;        
                 }
                 nextPosition = GetCurrentWaypoint();
-        }
+                mover.SetSpeed(patrolSpeedFactor);
+            }
             if (timeSinceArrivedAtWaypoint > waypointDwellTime)
             {
                 mover.StartMoveAction(nextPosition);
