@@ -119,7 +119,7 @@ namespace RPG.Control
         }
 
         // draw the radius within unity
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, chaseDistance);
