@@ -73,10 +73,11 @@ namespace RPG.Combat
             target = combatTarget.GetComponent<Health>();       
         }
 
-        // removes the enemy target & stop the attack animation - reset "attack" trigger
+        // removes the enemy target & stop the attack animation - reset "attack" trigger - cancel the mover action if any
         public void Cancel()
         {
             target = null;
+            mover.Cancel();
             animator.ResetTrigger("attack");
             animator.SetTrigger("stopAttack");
         }
