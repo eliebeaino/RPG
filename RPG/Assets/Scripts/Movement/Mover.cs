@@ -19,7 +19,7 @@ namespace RPG.Movement
 
         void Update()
         {
-            if (health.IsDead()) navMeshAgent.enabled = false;    // disables navmesh when dead
+            navMeshAgent.enabled = !health.IsDead();            // enables navmesh on start or disables navmesh when dead 
 
             UpdateAnimator();
         }
