@@ -1,17 +1,18 @@
 ﻿using RPG.Core;
+using RPG.Saving;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace RPG.Movement
 {
-    public class Mover : MonoBehaviour, IAction
+    public class Mover : MonoBehaviour, IAction, ISaveable
     {
         [SerializeField] float maxSpeed = 5.66f;
 
         NavMeshAgent navMeshAgent;
         Health health;
 
-        private void Start()
+        private void Awake()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
             health = GetComponent<Health>();
@@ -56,6 +57,18 @@ namespace RPG.Movement
             Vector3 localVelocity = transform.InverseTransformDirection(velocity);      // converting the velocity to local space  
             float speed = localVelocity.z;                                              // storing speed value from z axis (only anxis that interests us for animation, moving forward or not)
             GetComponent<Animator>().SetFloat("Forward Speed", speed);                  // setting the blend speed value
+        }
+
+        // saves the position of the character
+        public object CaptureState()
+        {
+            return new SerializableVector3(transform.position);
+        }
+        // loads the position of the character
+        public void RestoreState(object state)
+        {
+            SerializableVector3 positionState = (SerializableVector3)state;
+            navMeshAgent.Warp(positionState.ToVector());
         }
     }
 }

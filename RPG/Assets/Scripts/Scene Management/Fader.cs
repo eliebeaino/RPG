@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.XR.WSA.Input;
 
 namespace RPG.SceneManagement
 {
@@ -12,6 +10,11 @@ namespace RPG.SceneManagement
         private void Start()
         {
             canvasGroup = GetComponent<CanvasGroup>();
+        }
+
+        public void FadeOutImmediate()
+        {
+            canvasGroup.alpha = 1;
         }
 
         public IEnumerator FadeOut(float time)
@@ -31,6 +34,5 @@ namespace RPG.SceneManagement
                 yield return null;
             }
         }
-
     }
 }

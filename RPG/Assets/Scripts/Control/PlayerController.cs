@@ -26,7 +26,7 @@ namespace RPG.Control
             SetSpeed();
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
-            print("nothing else to do");
+            //print("Can't Interact");
         }
 
         private void SetSpeed()
