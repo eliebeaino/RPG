@@ -124,6 +124,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sword Pickp
       objectReference: {fileID: 0}
+    - target: {fileID: 7571515808842264738, guid: c87666ad0e1a9cb41b90d5701e2194da,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c87666ad0e1a9cb41b90d5701e2194da, type: 3}
 --- !u!4 &7569005989412077143 stripped

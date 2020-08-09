@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: edcda6842e0b37b45b205819c34af0f5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.04
+      value: 17.67
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edcda6842e0b37b45b205819c34af0f5,
         type: 3}
@@ -20,7 +20,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: edcda6842e0b37b45b205819c34af0f5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.18
+      value: -9.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edcda6842e0b37b45b205819c34af0f5,
         type: 3}
@@ -30,7 +30,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: edcda6842e0b37b45b205819c34af0f5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7425154
+      value: 0.8252804
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edcda6842e0b37b45b205819c34af0f5,
         type: 3}
@@ -40,7 +40,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: edcda6842e0b37b45b205819c34af0f5,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6698291
+      value: 0.5647232
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edcda6842e0b37b45b205819c34af0f5,
         type: 3}
@@ -55,12 +55,22 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: edcda6842e0b37b45b205819c34af0f5,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 95.892006
+      value: 111.23401
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: edcda6842e0b37b45b205819c34af0f5,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: edcda6842e0b37b45b205819c34af0f5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8da7060d2b837094b966cf3fb9962e89, type: 2}
+    - target: {fileID: -7511558181221131132, guid: edcda6842e0b37b45b205819c34af0f5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: edcda6842e0b37b45b205819c34af0f5,
         type: 3}
