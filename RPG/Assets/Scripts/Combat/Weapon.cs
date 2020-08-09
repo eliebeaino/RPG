@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RPG.Core;
+using UnityEngine;
 
 namespace RPG.Combat
 {
@@ -10,11 +11,14 @@ namespace RPG.Combat
 
         [SerializeField] private float weaponRange = 2f;
         [SerializeField] private float weaponDamage = 10f;
+        [SerializeField] bool isRightHanded = true;
+        [SerializeField] Projectile projectile = null;
 
-        public void Spawn(Transform handTransform, Animator animator)
+        public void Spawn(Transform rightHand,Transform leftHand, Animator animator)
         {
             if (equippedPrefab != null)
             {
+                Transform handTransform = GetTransform(rightHand, leftHand);
                 Instantiate(equippedPrefab, handTransform);
             }
             if (animatorOverride != null)
@@ -23,11 +27,35 @@ namespace RPG.Combat
             }
         }
 
+        // grabs which hand the weapon uses and set the trasform
+        Transform GetTransform(Transform rightHand, Transform leftHand)
+        {
+            Transform handTransform;
+            if (isRightHanded) handTransform = rightHand;
+            else handTransform = leftHand;
+            return handTransform;
+        }
+
+        // getter to check if weapon uses projectile system
+        public bool HasProjectile()
+        {
+            return projectile != null;
+        }
+
+        // fire the projectile - if any exist - from corresponding hand transform unto the target
+        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target)
+        {
+            Projectile projectielInstrance = Instantiate(projectile, GetTransform(rightHand, leftHand).position,Quaternion.identity);
+            projectielInstrance.SetTargetAndDamage(target,weaponDamage);
+        }
+
+        // getter for the weaopon range
         public float GetWeaponRange()
         {
             return weaponRange;
         }
 
+        // getter for the weaopon damage
         public float GetWeaponDamage()
         {
             return weaponDamage;

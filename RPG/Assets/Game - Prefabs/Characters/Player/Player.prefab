@@ -10,10 +10,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2.4738069
+  m_Radius: 0.4
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0.7369034, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &796511452086592919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +89,12 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 9505156, guid: 679ff741e12a7e740819ede24a7000b7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 679ff741e12a7e740819ede24a7000b7, type: 3}
+--- !u!4 &1074109721891813595 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 403948, guid: 679ff741e12a7e740819ede24a7000b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1074109721891410231}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1074109721891739827 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 461188, guid: 679ff741e12a7e740819ede24a7000b7,
@@ -139,6 +145,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: e7cc8bc58cd3cec47b9dc3ff493a161d,
         type: 2}
+    - target: {fileID: 304197029185576245, guid: 734695941bc39a14cb014ab2d6633505,
+        type: 3}
+      propertyPath: rightHandTransform
+      value: 
+      objectReference: {fileID: 1074109721891739827}
+    - target: {fileID: 304197029185576245, guid: 734695941bc39a14cb014ab2d6633505,
+        type: 3}
+      propertyPath: leftHandTransform
+      value: 
+      objectReference: {fileID: 1074109721891813595}
     - target: {fileID: 3436966268465961729, guid: 734695941bc39a14cb014ab2d6633505,
         type: 3}
       propertyPath: uniqueIdentifier
