@@ -6,19 +6,26 @@ namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, IAction
     {
-        [SerializeField] private float weaponRange = 2f;
         [SerializeField] private float timeBetweenAttacks = 1f;
-        [SerializeField] private float weaponDamage = 10f;
+        [SerializeField] Transform handTransform = null;
+        [SerializeField] Weapon defaultWeapon = null;
+
+        Weapon currentWeapon = null;
 
         float timeSinceLastAttack = Mathf.Infinity;  // allows attack directly upon first contact
         Health target;
         Mover mover;
         Animator animator;
+        
 
-        private void Start()
+        private void Awake()
         {
             mover = GetComponent<Mover>();
             animator = GetComponent<Animator>();
+        }
+        private void Start()
+        {
+            EquipWeapon(defaultWeapon);
         }
 
         private void Update()
@@ -54,7 +61,7 @@ namespace RPG.Combat
         // check the range from player to enemy target
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, target.transform.position) < weaponRange;
+            return Vector3.Distance(transform.position, target.transform.position) < currentWeapon.GetWeaponRange();
         }
 
         // check if target isdead to allow attacking or not
@@ -73,6 +80,13 @@ namespace RPG.Combat
             target = combatTarget.GetComponent<Health>();       
         }
 
+        // Equip the weapon (default weapon at the start of load) or pick up weapon saved to current weapon
+        public void EquipWeapon(Weapon weapon)
+        {
+            currentWeapon = weapon;
+            weapon.Spawn(handTransform, animator);
+        }
+
         // removes the enemy target & stop the attack animation - reset "attack" trigger - cancel the mover action if any
         public void Cancel()
         {
@@ -86,7 +100,7 @@ namespace RPG.Combat
         private void Hit()
         {
             if (target == null) return;
-            target.TakeDamage(weaponDamage);
+            target.TakeDamage(currentWeapon.GetWeaponDamage());
         }
     }
 }

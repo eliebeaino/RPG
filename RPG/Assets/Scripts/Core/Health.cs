@@ -18,6 +18,10 @@ namespace RPG.Core
             animator = GetComponent<Animator>();
             actionScheduler = GetComponent<ActionScheduler>();
         }
+        private void Start()
+        {
+            if (isDead) this.gameObject.SetActive(false);
+        }
 
         // called from fighter
         public void TakeDamage(float damage)
@@ -34,9 +38,8 @@ namespace RPG.Core
             actionScheduler.CancelCurrentAction();
 
             yield return new WaitForSeconds(CorpseTimer);
-            Destroy(gameObject);
+            this.gameObject.SetActive(false); ;
         }
-
 
         // getter for isdead
         public bool IsDead()

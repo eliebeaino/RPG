@@ -2,7 +2,6 @@
 using RPG.Movement;
 using RPG.Combat;
 using RPG.Core;
-using System;
 
 namespace RPG.Control
 {
@@ -11,22 +10,28 @@ namespace RPG.Control
         [SerializeField] float movementSpeedFactor = 0.7f;
 
         private Mover mover;
+        Fighter fighter;
         Health health;
 
         private void Start()
         {
             mover = GetComponent<Mover>();
             health = GetComponent<Health>();
+            fighter = GetComponent<Fighter>();
         }
 
         void Update()
         {
             if (health.IsDead()) return; // stops everything when dead
 
+            // if (Input.GetKeyDown(KeyCode.W)) fighter.EquipWeapon();  //placeholder to spawn weapon
+
             SetSpeed();
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
-            //print("Can't Interact");
+
+
+            print("mouse is out of bonds - nowhere to go");
         }
 
         private void SetSpeed()
@@ -43,11 +48,11 @@ namespace RPG.Control
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
                 if (target == null) continue;
 
-                if (!GetComponent<Fighter>().CanAttack(target.gameObject)) continue;
+                if (!fighter.CanAttack(target.gameObject)) continue;
 
                 if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
-                {  
-                    GetComponent<Fighter>().Attack(target.gameObject);
+                {
+                    fighter.Attack(target.gameObject);
                 }
                 return true;
             }

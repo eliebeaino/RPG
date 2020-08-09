@@ -1,5 +1,6 @@
 ﻿using RPG.Core;
 using RPG.Saving;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -60,15 +61,27 @@ namespace RPG.Movement
         }
 
         // saves the position of the character
+
+        [System.Serializable]
+        struct MoverSaveData
+        {
+            public SerializableVector3 position;
+            public SerializableVector3 rotation;
+        }
+
         public object CaptureState()
         {
-            return new SerializableVector3(transform.position);
+            MoverSaveData data = new MoverSaveData();
+            data.position = new SerializableVector3(transform.position);
+            data.rotation = new SerializableVector3(transform.eulerAngles);
+            return data;
         }
         // loads the position of the character
         public void RestoreState(object state)
         {
-            SerializableVector3 positionState = (SerializableVector3)state;
-            navMeshAgent.Warp(positionState.ToVector());
+            MoverSaveData data = (MoverSaveData)state;
+            navMeshAgent.Warp(data.position.ToVector());
+            transform.eulerAngles = data.rotation.ToVector();
         }
     }
 }
