@@ -1,5 +1,4 @@
-﻿using RPG.Core;
-using System;
+﻿using RPG.Resources;
 using UnityEngine;
 
 namespace RPG.Combat
@@ -43,7 +42,7 @@ namespace RPG.Combat
             if (other.GetComponent<Health>() != target) return;
             if (target.IsDead()) return;
             target.TakeDamage(damage);
-            Destroy(gameObject);
+            Destroy(gameObject,expirationTime);
         }
     }
 }

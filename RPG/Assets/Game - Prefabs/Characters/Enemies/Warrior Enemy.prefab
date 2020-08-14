@@ -1336,6 +1336,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &13067575358079042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6125073200291039767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5274744d16f243a498d4b426a4bbaedc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1947017103286558830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1355,18 +1367,6 @@ MonoBehaviour:
   waypointTolerance: 1
   waypointDwellTime: 3
   patrolSpeedFactor: 0.2
---- !u!114 &13067575358079042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6125073200291039767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5274744d16f243a498d4b426a4bbaedc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6367830556362577200
 GameObject:
   m_ObjectHideFlags: 0
@@ -2262,6 +2262,11 @@ PrefabInstance:
       propertyPath: leftHandTransform
       value: 
       objectReference: {fileID: 2063699441096401539}
+    - target: {fileID: 2896701797966369163, guid: 734695941bc39a14cb014ab2d6633505,
+        type: 3}
+      propertyPath: characterClass
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3436966268465961729, guid: 734695941bc39a14cb014ab2d6633505,
         type: 3}
       propertyPath: uniqueIdentifier

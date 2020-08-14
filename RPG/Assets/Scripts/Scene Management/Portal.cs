@@ -14,7 +14,7 @@ namespace RPG.SceneManagement
 
         [Header("Scene Propreties")]
         [SerializeField] [Range (-1,1)] int sceneToLoad = 1;
-        [SerializeField] Transform spawnPoint;
+        [SerializeField] Transform spawnPoint = null;
         [SerializeField] DestinationIdentifier destination;
 
         [Header("Fading Propreties")]

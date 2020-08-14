@@ -1,8 +1,8 @@
 ﻿using RPG.Combat;
-using RPG.Core;
+using RPG.Resources;
 using RPG.Movement;
-using System;
 using UnityEngine;
+using RPG.Core;
 
 namespace RPG.Control
 {
@@ -14,7 +14,7 @@ namespace RPG.Control
         [SerializeField] float chaseSpeedFactor = 0.5f;
 
         [Header("Patrol")]
-        [SerializeField] PatrolPath patrolPath;
+        [SerializeField] PatrolPath patrolPath = null;
         [SerializeField] float waypointTolerance = 1f;
         [SerializeField] float waypointDwellTime = 3f;
         [SerializeField] float patrolSpeedFactor = 0.2f;

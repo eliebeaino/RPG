@@ -5,7 +5,7 @@ namespace RPG.Combat
 {
     public class WeaponPickup : MonoBehaviour
     {
-        [SerializeField] Weapon weapon;
+        [SerializeField] Weapon weapon = null;
         [SerializeField] float respawnTime = 10f;
 
         private void OnTriggerEnter(Collider other)

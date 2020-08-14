@@ -18,6 +18,11 @@ PrefabInstance:
       propertyPath: timeBetweenAttacks
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2907900458665340024, guid: 01861f695d2123d4db2bf9713c0ccf86,
+        type: 3}
+      propertyPath: characterClass
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3194008825888919818, guid: 01861f695d2123d4db2bf9713c0ccf86,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
