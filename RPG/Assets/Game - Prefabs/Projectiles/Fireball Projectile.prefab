@@ -4879,6 +4879,11 @@ PrefabInstance:
       propertyPath: homing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 965739214691508342, guid: 2a502b3380d02ed469a3637bd80d06e4,
+        type: 3}
+      propertyPath: speed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1648471132124702801, guid: 2a502b3380d02ed469a3637bd80d06e4,
         type: 3}
       propertyPath: m_Name

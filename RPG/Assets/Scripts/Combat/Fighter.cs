@@ -1,10 +1,11 @@
 ﻿using RPG.Core;
 using RPG.Movement;
+using RPG.Saving;
 using UnityEngine;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction
+    public class Fighter : MonoBehaviour, IAction, ISaveable
     {
         [SerializeField] private float timeBetweenAttacks = 1f;
         [SerializeField] Transform rightHandTransform = null;
@@ -12,21 +13,27 @@ namespace RPG.Combat
         [SerializeField] Weapon defaultWeapon = null;
 
         Weapon currentWeapon = null;
-
         float timeSinceLastAttack = Mathf.Infinity;  // allows attack directly upon first contact
+        bool isAttacking = false;
+
         Health target;
         Mover mover;
         Animator animator;
         
-
+        // stores component on awake
         private void Awake()
         {
             mover = GetComponent<Mover>();
             animator = GetComponent<Animator>();
         }
+
+        // equips default weapon
         private void Start()
         {
-            EquipWeapon(defaultWeapon);
+            if (currentWeapon == null)
+            {
+                EquipWeapon(defaultWeapon);
+            }
         }
 
         private void Update()
@@ -73,8 +80,7 @@ namespace RPG.Combat
             return targetToTest != null && !targetToTest.IsDead();
         }
 
-        // set the target - from the playercontroller upon input 
-        // and cancel previous action (if any)
+        // set the target - from the playercontroller upon input - cancel previous action (if any)
         public void Attack(GameObject combatTarget)
         {
             GetComponent<ActionScheduler>().StartAction(this);
@@ -97,7 +103,9 @@ namespace RPG.Combat
             animator.SetTrigger("stopAttack");
         }
 
-        // animation event for melee
+        // animator events
+        #region
+        // animation event for melee to deal damage - for ranged attacks to create a projectile from the weapons location and launch towards target
         private void Hit()
         {
             if (target == null) return;
@@ -111,10 +119,43 @@ namespace RPG.Combat
             }
         }
 
-        // animation event for bow animation
-        private void Shoot()
+        // stops the characters movement at the start of attack animation
+        private void StopMovement()
         {
-            Hit();
+            mover.SetSpeed(0);
+            isAttacking = true;
         }
+
+        // resumes the characters movement before the end of attack animation
+        private void CanMoveAgain()
+        {
+            mover.SetSpeed(1);
+            isAttacking = false;
+        }
+
+        // referenced in controller scripts to stop all other actions till attack is finished
+        public bool IsAttacking()
+        {
+            return isAttacking;
+        }
+        #endregion
+
+        // saving system
+        #region
+        // saves the weapon name
+        public object CaptureState()
+        {
+            return currentWeapon.name;
+        }
+        
+
+        // load the weapon used from save - equips it by loading it from the ressource folder from the string reference
+        public void RestoreState(object state)
+          {
+            string weaponName = (string)state;
+            Weapon weapon = Resources.Load<Weapon>(weaponName);
+            EquipWeapon(weapon);
+        }
+        #endregion
     }
 }

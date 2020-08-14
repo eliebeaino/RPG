@@ -12,9 +12,8 @@ namespace RPG.Control
         [SerializeField] float chaseDistance = 5f;
         [SerializeField] float suspicionTime = 3f;
         [SerializeField] float chaseSpeedFactor = 0.5f;
-        [SerializeField] float maxSpeedFactor = 1f; // unused
 
-        [Header("Patrol:")]
+        [Header("Patrol")]
         [SerializeField] PatrolPath patrolPath;
         [SerializeField] float waypointTolerance = 1f;
         [SerializeField] float waypointDwellTime = 3f;
@@ -30,19 +29,24 @@ namespace RPG.Control
         float timeSinceArrivedAtWaypoint = Mathf.Infinity;
         int currentWaypointIndex = 0;
 
-        private void Start()
+        // cache references
+        private void Awake()
         {
             fighter = GetComponent<Fighter>();
-            player = GameObject.FindWithTag("Player");
             health = GetComponent<Health>();
             mover = GetComponent<Mover>();
+        }
 
+        // set the player as the enemy's target - define intitial pos
+        private void Start()
+        {
+            player = GameObject.FindWithTag("Player");
             guardPosition = transform.position;
         }
 
         private void Update()
         {
-            if (health.IsDead()) return;  // stops everything when dead
+            if (health.IsDead() || fighter.IsAttacking()) return;  // stops everything when dead
 
             if (InAttackRange() && fighter.CanAttack(player))
             {

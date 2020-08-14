@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5413022116112014641
+--- !u!114 &-6406445167946410343
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,196 +9,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3eb4b772797da9440885e8bd939e9560, type: 3}
-  m_Name: ColorCurves
+  m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
+  m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_AdvancedMode: 0
-  master:
-    m_OverrideState: 0
-    m_Value:
-      <length>k__BackingField: 2
-      m_Loop: 0
-      m_ZeroValue: 0
-      m_Range: 1
-      m_Curve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-  red:
-    m_OverrideState: 0
-    m_Value:
-      <length>k__BackingField: 2
-      m_Loop: 0
-      m_ZeroValue: 0
-      m_Range: 1
-      m_Curve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-  green:
+  threshold:
     m_OverrideState: 1
-    m_Value:
-      <length>k__BackingField: 3
-      m_Loop: 0
-      m_ZeroValue: 0
-      m_Range: 1
-      m_Curve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 0.57980454
-          value: 0.3076923
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-  blue:
+    m_Value: 1
+    min: 0
+  intensity:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+  scatter:
     m_OverrideState: 0
-    m_Value:
-      <length>k__BackingField: 2
-      m_Loop: 0
-      m_ZeroValue: 0
-      m_Range: 1
-      m_Curve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-  hueVsHue:
+    m_Value: 0.545
+    min: 0
+    max: 1
+  clamp:
     m_OverrideState: 0
-    m_Value:
-      <length>k__BackingField: 0
-      m_Loop: 1
-      m_ZeroValue: 0.5
-      m_Range: 1
-      m_Curve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-  hueVsSat:
+    m_Value: 65472
+    min: 0
+  tint:
     m_OverrideState: 0
-    m_Value:
-      <length>k__BackingField: 0
-      m_Loop: 1
-      m_ZeroValue: 0.5
-      m_Range: 1
-      m_Curve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-  satVsSat:
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    hdr: 0
+    showAlpha: 0
+    showEyeDropper: 1
+  highQualityFiltering:
     m_OverrideState: 0
-    m_Value:
-      <length>k__BackingField: 0
-      m_Loop: 0
-      m_ZeroValue: 0.5
-      m_Range: 1
-      m_Curve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-  lumVsSat:
+    m_Value: 1
+  dirtTexture:
     m_OverrideState: 0
-    m_Value:
-      <length>k__BackingField: 0
-      m_Loop: 0
-      m_ZeroValue: 0.5
-      m_Range: 1
-      m_Curve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
+    m_Value: {fileID: 0}
+  dirtIntensity:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
 --- !u!114 &-4932032339986425853
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -222,8 +70,8 @@ MonoBehaviour:
     min: -100
     max: 100
   colorFilter:
-    m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_OverrideState: 0
+    m_Value: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 1}
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
@@ -237,65 +85,6 @@ MonoBehaviour:
     m_Value: -12
     min: -100
     max: 100
---- !u!114 &-1366807647772785229
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdfbdbb87d3286943a057f7791b43141, type: 3}
-  m_Name: ChannelMixer
-  m_EditorClassIdentifier: 
-  active: 0
-  m_AdvancedMode: 0
-  redOutRedIn:
-    m_OverrideState: 1
-    m_Value: 100
-    min: -200
-    max: 200
-  redOutGreenIn:
-    m_OverrideState: 1
-    m_Value: 20
-    min: -200
-    max: 200
-  redOutBlueIn:
-    m_OverrideState: 1
-    m_Value: 0
-    min: -200
-    max: 200
-  greenOutRedIn:
-    m_OverrideState: 1
-    m_Value: 0
-    min: -200
-    max: 200
-  greenOutGreenIn:
-    m_OverrideState: 1
-    m_Value: 100
-    min: -200
-    max: 200
-  greenOutBlueIn:
-    m_OverrideState: 1
-    m_Value: 0
-    min: -200
-    max: 200
-  blueOutRedIn:
-    m_OverrideState: 1
-    m_Value: 0
-    min: -200
-    max: 200
-  blueOutGreenIn:
-    m_OverrideState: 1
-    m_Value: 0
-    min: -200
-    max: 200
-  blueOutBlueIn:
-    m_OverrideState: 1
-    m_Value: 100
-    min: -200
-    max: 200
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,11 +98,10 @@ MonoBehaviour:
   m_Name: Post Processing
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 1939272609873869967}
   - {fileID: -4932032339986425853}
-  - {fileID: -5413022116112014641}
-  - {fileID: -1366807647772785229}
---- !u!114 &1939272609873869967
+  - {fileID: -6406445167946410343}
+  - {fileID: 7068692329253119694}
+--- !u!114 &7068692329253119694
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -322,33 +110,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 558a8e2b6826cf840aae193990ba9f2e, type: 3}
-  m_Name: ShadowsMidtonesHighlights
+  m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
+  m_Name: Tonemapping
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_AdvancedMode: 0
-  shadows:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 0.98591954, z: 0.8770286, w: -0.61413676}
-  midtones:
-    m_OverrideState: 0
-    m_Value: {x: 0.86755556, y: 1, z: 0.95187485, w: -0.3476246}
-  highlights:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
-  shadowsStart:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  shadowsEnd:
-    m_OverrideState: 0
-    m_Value: 1.24
-    min: 0
-  highlightsStart:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  highlightsEnd:
-    m_OverrideState: 0
+  mode:
+    m_OverrideState: 1
     m_Value: 1
-    min: 0

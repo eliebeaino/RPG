@@ -8,9 +8,10 @@ namespace RPG.Combat
     {
         [SerializeField] float speed = 8f;
         [SerializeField] bool homing = false;
+        [SerializeField] float expirationTime = 10f;
         Health target;
         float damage = 0;
-
+        
         private void Start()
         {
             transform.LookAt(GetAimLocation());

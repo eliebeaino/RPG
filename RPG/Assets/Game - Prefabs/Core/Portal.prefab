@@ -85,9 +85,15 @@ VisualEffect:
     m_Vector2f:
       m_Array: []
     m_Vector3f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 20, y: 1, z: 5}
+        m_Name: Box Size_vector
+        m_Overridden: 1
     m_Vector4f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 0.3137255, y: 2, z: 1.9764706, w: 1}
+        m_Name: Color
+        m_Overridden: 1
     m_Uint:
       m_Array: []
     m_Int:
@@ -97,7 +103,38 @@ VisualEffect:
     m_AnimationCurve:
       m_Array: []
     m_Gradient:
-      m_Array: []
+      m_Array:
+      - m_Value:
+          serializedVersion: 2
+          key0: {r: 11.984314, g: 11.984314, b: 11.984314, a: 0}
+          key1: {r: 0.09411765, g: 2.3215687, b: 5.992157, a: 1}
+          key2: {r: 0.89411765, g: 0.54901963, b: 3.9686275, a: 1}
+          key3: {r: 3.9999995, g: 0, b: 0, a: 0}
+          key4: {r: 31.999996, g: 0, b: 0, a: 0}
+          key5: {r: 1, g: 1, b: 1, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 9445
+          ctime1: 23901
+          ctime2: 45489
+          ctime3: 59753
+          ctime4: 65535
+          ctime5: 65535
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 11180
+          atime2: 57054
+          atime3: 65535
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_NumColorKeys: 4
+          m_NumAlphaKeys: 4
+        m_Name: Color Gradient
+        m_Overridden: 1
     m_NamedObject:
       m_Array: []
     m_Bool:
