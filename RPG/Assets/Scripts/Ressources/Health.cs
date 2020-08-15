@@ -9,6 +9,7 @@ namespace RPG.Resources
     public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float CorpseTimer = 30f;
+        [SerializeField] float healthPercentOnLevelUP = 50f;
 
         float healthPoints = -1f;
 
@@ -35,6 +36,7 @@ namespace RPG.Resources
             {
                 healthPoints = baseStats.GetStat(Stat.Health);
             }
+            baseStats.onLevelUp += IncreaseHPOnLevelUP;
         }
 
         // called from fighter
@@ -66,6 +68,13 @@ namespace RPG.Resources
             Experience experience = instigator.GetComponent<Experience>();
             if (experience == null) return;
             experience.GainExperience(baseStats.GetStat(Stat.ExperienceReward));
+        }
+
+        private void IncreaseHPOnLevelUP()
+        {
+            float newMaxHp = baseStats.GetStat(Stat.Health);
+            float newHP = healthPoints + (newMaxHp * healthPercentOnLevelUP / 100);
+            healthPoints = Mathf.Clamp(newHP,0, newMaxHp);
         }
 
         // getter for health levels - used for health displays

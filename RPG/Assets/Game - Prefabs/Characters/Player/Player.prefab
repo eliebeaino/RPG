@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3627b4912544a43942424bb56bfd6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeedFactor: 0.7
+  movementSpeedFactor: 1
 --- !u!114 &5995785780435574627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,6 +387,12 @@ PrefabInstance:
       propertyPath: characterClass
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2896701797966369163, guid: 734695941bc39a14cb014ab2d6633505,
+        type: 3}
+      propertyPath: levelUPVFX
+      value: 
+      objectReference: {fileID: 4902261958870487846, guid: 252b0190d5c11294d86b0547fe375fcb,
+        type: 3}
     - target: {fileID: 3436966268465961729, guid: 734695941bc39a14cb014ab2d6633505,
         type: 3}
       propertyPath: uniqueIdentifier

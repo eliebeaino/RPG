@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace RPG.Stats
 {
@@ -7,7 +8,9 @@ namespace RPG.Stats
         [SerializeField] [Range(1, 100)] int startingLevel = 1;
         [SerializeField] CharacterClass characterClass;
         [SerializeField] Progression progression = null;
+        [SerializeField] GameObject levelUPVFX = null;
 
+        public event Action onLevelUp; 
         Experience experience;
         int currentLevel = 0;
 
@@ -34,8 +37,14 @@ namespace RPG.Stats
             if (newLevel > currentLevel)
             {
                 currentLevel = newLevel;
-                print("Levelled Up!");
+                LevelUpEffect();
+                onLevelUp();
             }
+        }
+
+        private void LevelUpEffect()
+        {
+            Instantiate(levelUPVFX, transform);
         }
 
         // getter for any stat

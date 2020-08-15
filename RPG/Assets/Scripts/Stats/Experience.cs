@@ -13,7 +13,7 @@ namespace RPG.Stats
         BaseStats baseStats;
 
         public event Action onExperienceGained;
-
+        
         private void Awake()
         {
             experienceDisplay = FindObjectOfType<ExperienceDisplay>();
