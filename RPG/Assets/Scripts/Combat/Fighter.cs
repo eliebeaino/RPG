@@ -110,8 +110,7 @@ namespace RPG.Combat
             animator.SetTrigger("stopAttack");
         }
 
-        // animator events
-        #region
+        #region Animation
         // animation event for melee to deal damage - for ranged attacks to create a projectile from the weapons location and launch towards target
         private void Hit()
         {
@@ -147,15 +146,13 @@ namespace RPG.Combat
         }
         #endregion
 
-        // saving system
-        #region
-        // saves the weapon name
+        #region Save Weapon
+        // saves the weapon name - holds weapons
         public object CaptureState()
         {
             return currentWeapon.name;
         }
         
-
         // load the weapon used from save - equips it by loading it from the ressource folder from the string reference
         public void RestoreState(object state)
           {

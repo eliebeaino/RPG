@@ -21,7 +21,7 @@ namespace RPG.Combat
             }
             else
             {
-                text.text = fighter.GetTarget().GetPercentageHealth().ToString("F2") + "%";
+                text.text = fighter.GetTarget().GetHealth() + " // " + fighter.GetTarget().GetPercentageHealth().ToString("F2") + "%";
             }
         }
     }

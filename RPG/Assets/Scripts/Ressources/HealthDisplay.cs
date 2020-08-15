@@ -16,7 +16,7 @@ namespace RPG.Resources
 
         private void Update()
         {
-            text.text = health.GetPercentageHealth().ToString("F2") + "%";
+            text.text = health.GetHealth() + " // " + health.GetPercentageHealth().ToString("F2") + "%";
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using RPG.Core;
 using RPG.Saving;
 using RPG.Stats;
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,8 +8,9 @@ namespace RPG.Resources
 {
     public class Health : MonoBehaviour, ISaveable
     {
-        [SerializeField] private float healthPoints = 100f;
-        [SerializeField] private float CorpseTimer = 30f;
+        [SerializeField] float CorpseTimer = 30f;
+
+        float healthPoints = -1f;
 
         private bool isDead = false;
         Animator animator;
@@ -29,8 +29,12 @@ namespace RPG.Resources
         // if the character is dead, turns this off(for reloading scenes with dead enemies) -- TODO change this slightly later on for respawns
         private void Start()
         {
-            healthPoints = baseStats.GetStat(Stat.Health); // TODO fix loading health to not reset
             if (isDead) this.gameObject.SetActive(false);
+            // check if health is no longer -1 meaning it was already restored from save file and no longer need to get the base stat
+            if (healthPoints < 0)
+            {
+                healthPoints = baseStats.GetStat(Stat.Health);
+            }
         }
 
         // called from fighter
@@ -44,7 +48,7 @@ namespace RPG.Resources
             }
         }
 
-        // set the death animation - cancel the current action in place from the scheduler - destory the enemy after corpse timer delay
+        // set the death animation - cancel the current action in place from the scheduler - turn off the enemy after corpse timer delay
         // rewards experience
         IEnumerator Die()
         {
@@ -70,6 +74,11 @@ namespace RPG.Resources
             return healthPoints / baseStats.GetStat(Stat.Health) * 100;
         }
 
+        public float GetHealth()
+        {
+            return healthPoints;
+        }
+
         // getter for isdead
         public bool IsDead()
         {
@@ -84,8 +93,7 @@ namespace RPG.Resources
             animator.enabled = true;
         }
 
-        // Saving system
-        #region
+        #region Save HP
         // saves health levels of this character
         public object CaptureState()
         {
