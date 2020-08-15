@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 2896701797966369163}
   - component: {fileID: 5953297979347943961}
   - component: {fileID: 3436966268465961729}
+  - component: {fileID: 527857371433240537}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -204,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5a61d0a0da6614298cc28b26934624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  healthPoints: 100
   CorpseTimer: 30
 --- !u!114 &3436966268465961729
 MonoBehaviour:
@@ -219,3 +220,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueIdentifier: 
+--- !u!136 &527857371433240537
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127899730475189885}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}

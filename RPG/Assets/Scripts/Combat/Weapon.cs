@@ -70,10 +70,10 @@ namespace RPG.Combat
         }
 
         // fire the projectile - if any exist - from corresponding hand transform unto the target
-        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target)
+        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, GameObject instigator)
         {
             Projectile projectielInstrance = Instantiate(projectile, GetTransform(rightHand, leftHand).position,Quaternion.identity);
-            projectielInstrance.SetTargetAndDamage(target,weaponDamage);
+            projectielInstrance.SetTargetAndDamage(target, instigator ,weaponDamage);
         }
 
         // getter for the weaopon range

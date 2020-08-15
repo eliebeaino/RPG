@@ -7,23 +7,43 @@ namespace RPG.Stats
     {
         [SerializeField] ProgressionCharacterClass[] characterClasses;
 
-        public float GetHealth(CharacterClass characterClass, int level)
+        public float GetStat(Stat stat,CharacterClass characterClass, int level)
         {
+            // search the listings for character class that is passed in (enum)
             foreach (ProgressionCharacterClass progressionCharacterClass in characterClasses)
             {
-                if (progressionCharacterClass.characterClass == characterClass)
-                {
-                    return progressionCharacterClass.health[level - 1];
+                if (progressionCharacterClass.characterClass != characterClass) continue;
+
+                // search the listings for the stat that is passed in (enum)
+                foreach (ProgressionStat progressionStat in progressionCharacterClass.stats)
+                { 
+                    if (progressionStat.stat != stat) continue;
+
+                    // guard in case the array is too small
+                    if (progressionStat.levels.Length < level) continue;
+
+                    // return appropreiate stat according to level passed in (float)
+                    return progressionStat.levels[level - 1];
                 }
             }
-            return 0;
+            Debug.Log("Progression field empty for: " + characterClass + " - " + stat + " - level: " + level);
+            return 0; // in case nothing is found
         }
 
         [System.Serializable]
         class ProgressionCharacterClass
         {
             public CharacterClass characterClass;
-            public float[] health;
+            public ProgressionStat[] stats;
+            
         }
+
+        [System.Serializable]
+        class ProgressionStat
+        {
+            public Stat stat;
+            public float[] levels;
+        }
+
     }
 }

@@ -95,6 +95,12 @@ namespace RPG.Combat
             weapon.Spawn(rightHandTransform, leftHandTransform, animator);
         }
 
+        // getter for target - used to check players current target
+        public Health GetTarget()
+        {
+            return target;
+        }
+
         // removes the enemy target & stop the attack animation - reset "attack" trigger - cancel the mover action if any
         public void Cancel()
         {
@@ -112,11 +118,11 @@ namespace RPG.Combat
             if (target == null) return;
             if (currentWeapon.HasProjectile())
             {
-                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, target);
+                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject);
             }
             else
             {
-                target.TakeDamage(currentWeapon.GetWeaponDamage());
+                target.TakeDamage(gameObject, currentWeapon.GetWeaponDamage());
             }
         }
 

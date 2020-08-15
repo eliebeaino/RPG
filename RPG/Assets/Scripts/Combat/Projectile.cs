@@ -8,12 +8,15 @@ namespace RPG.Combat
         [SerializeField] float speed = 8f;
         [SerializeField] bool homing = false;
         [SerializeField] float expirationTime = 10f;
+
         Health target;
+        GameObject instigator;
         float damage = 0;
         
         private void Start()
         {
             transform.LookAt(GetAimLocation());
+            Destroy(gameObject, expirationTime);
         }
 
         private void Update()
@@ -24,10 +27,11 @@ namespace RPG.Combat
         }
 
         // sets the target and the damage of the projectile
-        public void SetTargetAndDamage(Health getTarget, float getDamage)
+        public void SetTargetAndDamage(Health getTarget,GameObject instigator, float getDamage)
         {
             this.target = getTarget;
             this.damage = getDamage;
+            this.instigator = instigator;
         }    
 
         // grabs the location of the center of target's collider
@@ -41,8 +45,8 @@ namespace RPG.Combat
         {
             if (other.GetComponent<Health>() != target) return;
             if (target.IsDead()) return;
-            target.TakeDamage(damage);
-            Destroy(gameObject,expirationTime);
+            target.TakeDamage(instigator, damage);
+            Destroy(gameObject);
         }
     }
 }

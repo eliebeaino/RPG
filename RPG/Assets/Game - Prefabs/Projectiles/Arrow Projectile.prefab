@@ -62,10 +62,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 965739214691508342, guid: 2a502b3380d02ed469a3637bd80d06e4,
+        type: 3}
+      propertyPath: speed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1648471132124702801, guid: 2a502b3380d02ed469a3637bd80d06e4,
         type: 3}
       propertyPath: m_Name
-      value: Arrow Projectile Variant
+      value: Arrow Projectile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a502b3380d02ed469a3637bd80d06e4, type: 3}

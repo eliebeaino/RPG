@@ -1,6 +1,7 @@
 ﻿using RPG.Core;
 using RPG.Saving;
 using RPG.Stats;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -24,20 +25,27 @@ namespace RPG.Resources
             baseStats = GetComponent<BaseStats>();
         }
 
+        // Load base health from progression depending on level
+        // if the character is dead, turns this off(for reloading scenes with dead enemies) -- TODO change this slightly later on for respawns
         private void Start()
         {
-            healthPoints = baseStats.GetHealth(); // TODO fix loading health not resetting
+            healthPoints = baseStats.GetStat(Stat.Health); // TODO fix loading health to not reset
             if (isDead) this.gameObject.SetActive(false);
         }
 
         // called from fighter
-        public void TakeDamage(float damage)
+        public void TakeDamage(GameObject instigator, float damage)
         {
-            healthPoints = Mathf.Max(healthPoints - damage,0);  // limit minimum health to 0
-            if (healthPoints == 0 && !isDead) StartCoroutine(Die());
+            healthPoints = Mathf.Max(healthPoints - damage, 0);  // limit minimum health to 0
+            if (healthPoints == 0 && !isDead)
+            {
+                AwardExperience(instigator);
+                StartCoroutine(Die());
+            }
         }
 
         // set the death animation - cancel the current action in place from the scheduler - destory the enemy after corpse timer delay
+        // rewards experience
         IEnumerator Die()
         {
             isDead = true;
@@ -46,6 +54,20 @@ namespace RPG.Resources
 
             yield return new WaitForSeconds(CorpseTimer);
             this.gameObject.SetActive(false); ;
+        }
+
+        // Reward the player with experince by grabbing experience levels from basestats of enemy killed
+        private void AwardExperience(GameObject instigator)
+        {
+            Experience experience = instigator.GetComponent<Experience>();
+            if (experience == null) return;
+            experience.GainExperience(baseStats.GetStat(Stat.ExperienceReward));
+        }
+
+        // getter for health levels - used for health displays
+        public float GetPercentageHealth()
+        {
+            return healthPoints / baseStats.GetStat(Stat.Health) * 100;
         }
 
         // getter for isdead
@@ -62,6 +84,8 @@ namespace RPG.Resources
             animator.enabled = true;
         }
 
+        // Saving system
+        #region
         // saves health levels of this character
         public object CaptureState()
         {
@@ -74,5 +98,6 @@ namespace RPG.Resources
             healthPoints = (float)state;
             if (healthPoints == 0 && !isDead) StartCoroutine(Die());
         }
+        #endregion
     }
 }
