@@ -13,13 +13,13 @@ GameObject:
   - component: {fileID: 879574703}
   - component: {fileID: 879574698}
   - component: {fileID: 5098916459892246289}
+  - component: {fileID: 527857371433240537}
+  - component: {fileID: 3436966268465961729}
   - component: {fileID: 3660569117551393494}
   - component: {fileID: 879574702}
   - component: {fileID: 304197029185576245}
   - component: {fileID: 2896701797966369163}
   - component: {fileID: 5953297979347943961}
-  - component: {fileID: 3436966268465961729}
-  - component: {fileID: 527857371433240537}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -137,6 +137,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &527857371433240537
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127899730475189885}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3436966268465961729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127899730475189885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea9374b509b70f4bba37e4a2ca8cf00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueIdentifier: 
 --- !u!114 &3660569117551393494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72eb8fe5f1d5f69449001496ebf6ba3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingLevel: 1
+  level: 1
   characterClass: 1
   progression: {fileID: 11400000, guid: 485a9581cc164bf4b88a78fdecbd37ef, type: 2}
 --- !u!114 &5953297979347943961
@@ -205,32 +232,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5a61d0a0da6614298cc28b26934624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 100
   CorpseTimer: 30
---- !u!114 &3436966268465961729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9127899730475189885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ea9374b509b70f4bba37e4a2ca8cf00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueIdentifier: 
---- !u!136 &527857371433240537
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9127899730475189885}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.4
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}

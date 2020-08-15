@@ -9,8 +9,15 @@ namespace RPG.SceneManagement
         [SerializeField] float fadeInTime = 1f;
 
         const string defaultSaveFile = "save";
-        
-        IEnumerator Start()
+
+        // make sure reloading is happening before all starts in other scripts
+        private void Awake()
+        {
+            StartCoroutine(LoadLastScene());
+        }
+
+        // fader full opacity -> reload the save file -> fade in to scene
+        IEnumerator LoadLastScene()
         {
             Fader fader = FindObjectOfType<Fader>();
             fader.FadeOutImmediate();
@@ -24,7 +31,6 @@ namespace RPG.SceneManagement
             {
                 Save();
             }
-
             if (Input.GetKeyDown(KeyCode.L))
             {
                 Load();

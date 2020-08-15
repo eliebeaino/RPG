@@ -208,7 +208,6 @@ GameObject:
   - component: {fileID: 9145418283502217822}
   - component: {fileID: 8157179452842458238}
   - component: {fileID: 4714271807132825234}
-  - component: {fileID: 1079027917113381761}
   m_Layer: 5
   m_Name: Player Level Value
   m_TagString: Untagged
@@ -276,18 +275,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 1
---- !u!114 &1079027917113381761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4840120967202594275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c630e96eb0d0964bb08980e73c053d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5591088545991159586
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,6 +600,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22553a152872a014dbbcd5db92b9d090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelText: {fileID: 4714271807132825234}
+  xpText: {fileID: 1590405455459606118}
 --- !u!1 &8135800666464098733
 GameObject:
   m_ObjectHideFlags: 0

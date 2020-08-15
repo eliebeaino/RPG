@@ -1,22 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace RPG.Stats
 {
     public class ExperienceDisplay : MonoBehaviour
     {
-        Text text;
+        [SerializeField] Text levelText;
+        [SerializeField] Text xpText;
         Experience experience;
 
         void Awake()
         {
             experience = GameObject.FindWithTag("Player").GetComponent<Experience>();
-            text = GetComponent<Text>();
         }
 
-        private void Update()
+        public void UpdateUIText(int currentLevel)
         {
-            text.text = experience.GetExperience().ToString("F0");
+            xpText.text = experience.GetExperiencePoints().ToString("F0");
+            levelText.text = currentLevel.ToString();
         }
     }
 }
