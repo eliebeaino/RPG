@@ -2,12 +2,32 @@
 using RPG.Movement;
 using RPG.Combat;
 using RPG.Resources;
+using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEngine.EventSystems;
 
 namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] float movementSpeedFactor = 1f;
+        enum CursorType
+        {
+            None,
+            Movement,
+            Combat,
+            UI
+        }
+        
+        [System.Serializable]
+        struct CursorMapping
+        {
+            public CursorType cursorType;
+            public Texture2D texture;
+            public Vector2 hotspot;
+        }
+
+        [SerializeField] CursorMapping[] cursorMappings = null;
+
+        [SerializeField] float movementSpeedFactor = 1f; // TODO remove when movespeed is implemented in basestats
 
         private Mover mover;
         Fighter fighter;
@@ -22,19 +42,34 @@ namespace RPG.Control
 
         void Update()
         {
-            if (health.IsDead()) return;
+            if (InteractWithUI()) return;
+
+            if (health.IsDead())
+            {
+                SetCursor(CursorType.None);
+                return;
+            }
 
             SetSpeed();
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
 
-
-            Debug.Log("Cursor is out of bounds!");
+            SetCursor(CursorType.None);
         }
 
         private void SetSpeed()
         {
             mover.SetSpeed(movementSpeedFactor);
+        }
+
+        private bool InteractWithUI()
+        {
+            if(EventSystem.current.IsPointerOverGameObject())
+            {
+                SetCursor(CursorType.UI);
+                return true;
+            }
+            return false;
         }
 
         private bool InteractWithCombat()
@@ -51,6 +86,7 @@ namespace RPG.Control
                 {
                     fighter.Attack(target.gameObject);
                 }
+                SetCursor(CursorType.Combat);
                 return true;
             }
             return false;
@@ -67,9 +103,28 @@ namespace RPG.Control
                 {
                     mover.StartMoveAction(hit.point);
                 }
+                SetCursor(CursorType.Movement);
                 return true;
             }
             return false;
+        }
+
+        private void SetCursor(CursorType type)
+        {
+            CursorMapping mapping = GetCursorMapping(type);
+            Cursor.SetCursor(mapping.texture, mapping.hotspot, CursorMode.Auto);
+        }
+
+        private CursorMapping GetCursorMapping(CursorType type)
+        {
+            foreach (CursorMapping mapping in cursorMappings)
+            {
+                if (mapping.cursorType == type)
+                {
+                    return mapping;
+                }
+            }
+            return cursorMappings[0];
         }
 
         private static Ray GetMouseRay()

@@ -71,7 +71,6 @@ namespace RPG.Stats
             return progression.GetStat(stat, characterClass, GetLevel());
         }
 
-        // TODO - dont understand
         private float GetAdditiveModifier(Stat stat)
         {
             if (!useModifiers) return 0;
@@ -142,10 +141,10 @@ namespace RPG.Stats
 }
 
 
-// calculate the level - explained inside 
+//calculate the level - explained inside 
 //public int CalculateLevel()
 //{
-//    // exit loop for characters without experience - mostly if not all enemies -- also exit for player when reached max level
+//    exit loop for characters without experience - mostly if not all enemies --also exit for player when reached max level
 //    if (experience == null || level == maxLevel) return level;
 
 //    float currentXP = experience.GetExperiencePoints();
@@ -153,9 +152,9 @@ namespace RPG.Stats
 //    Debug.Log("exp needed to level up: " + XPToLevelUp);
 //    if (currentXP >= XPToLevelUp && level <= maxLevel)
 //    {
-//        Debug.Log("level up " + gameObject.name + " - " + level++) ;
+//        Debug.Log("level up " + gameObject.name + " - " + level++);
 //        return level++;
-//        // TODO add experience resetter for next level
+//        TODO add experience resetter for next level
 //    }
 //    Debug.Log("same level " + gameObject.name + " - " + level);
 //    return level;
