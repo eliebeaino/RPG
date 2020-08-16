@@ -7,13 +7,13 @@ namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] float movementSpeedFactor = 0.7f;
+        [SerializeField] float movementSpeedFactor = 1f;
 
         private Mover mover;
         Fighter fighter;
         Health health;
 
-        private void Start()
+        private void Awake()
         {
             mover = GetComponent<Mover>();
             health = GetComponent<Health>();
@@ -22,16 +22,14 @@ namespace RPG.Control
 
         void Update()
         {
-            if (health.IsDead()) return; // stops everything when dead
-
-            // if (Input.GetKeyDown(KeyCode.W)) fighter.EquipWeapon();  //placeholder to spawn weapon
+            if (health.IsDead()) return;
 
             SetSpeed();
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
 
 
-            print("mouse is out of bonds - nowhere to go");
+            Debug.Log("Cursor is out of bounds!");
         }
 
         private void SetSpeed()
@@ -39,7 +37,6 @@ namespace RPG.Control
             mover.SetSpeed(movementSpeedFactor);
         }
 
-        // check if targetting a - LIVING - enemy and attack it
         private bool InteractWithCombat()
         {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
@@ -48,7 +45,7 @@ namespace RPG.Control
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
                 if (target == null) continue;
 
-                if (!fighter.CanAttack(target.gameObject)) continue;
+                if (!fighter.HasValidTarget(target.gameObject)) continue;
 
                 if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
                 {
@@ -59,7 +56,6 @@ namespace RPG.Control
             return false;
         }
 
-        // gets player input and moves the player to the cursor when left click 
         private bool InteractWithMovement()
         {
             RaycastHit hit;
@@ -76,7 +72,6 @@ namespace RPG.Control
             return false;
         }
 
-        // get the ray from camera to mouse point
         private static Ray GetMouseRay()
         {
             return Camera.main.ScreenPointToRay(Input.mousePosition);

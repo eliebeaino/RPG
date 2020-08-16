@@ -26,7 +26,6 @@ namespace RPG.Combat
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
 
-        // sets the target and the damage of the projectile
         public void SetTargetAndDamage(Health getTarget,GameObject instigator, float getDamage)
         {
             this.target = getTarget;
@@ -34,7 +33,6 @@ namespace RPG.Combat
             this.instigator = instigator;
         }    
 
-        // grabs the location of the center of target's collider
         private Vector3 GetAimLocation()
         {
             CapsuleCollider targetCapsule = target.GetComponent<CapsuleCollider>();

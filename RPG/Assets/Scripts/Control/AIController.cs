@@ -29,7 +29,6 @@ namespace RPG.Control
         float timeSinceArrivedAtWaypoint = Mathf.Infinity;
         int currentWaypointIndex = 0;
 
-        // cache references
         private void Awake()
         {
             fighter = GetComponent<Fighter>();
@@ -37,10 +36,9 @@ namespace RPG.Control
             mover = GetComponent<Mover>();
         }
 
-        // set the player as the enemy's target - define intitial pos
         private void Start()
         {
-            player = GameObject.FindWithTag("Player");
+            player = GameObject.FindWithTag("Player"); // TODO Move to awake
             guardPosition = transform.position;
         }
 
@@ -48,7 +46,7 @@ namespace RPG.Control
         {
             if (health.IsDead() || fighter.IsAttacking()) return;  // stops everything when dead
 
-            if (InAttackRange() && fighter.CanAttack(player))
+            if (InAttackRange() && fighter.HasValidTarget(player))
             {
                 AttackBehavior();
             }
@@ -82,16 +80,15 @@ namespace RPG.Control
             GetComponent<ActionScheduler>().CancelCurrentAction();
         }
 
-        // guard behavior if theres no patrol path
-        // patrol along path by cycling through the waypoint in patrol path
+        // patrol along path or go back to guard position
         private void PatrolBehavior()
         {
             Vector3 nextPosition = guardPosition;
             if (patrolPath != null)
             {
-                if (AtWaypoint())
+                if (IsAtWaypoint())
                 {
-                    CycleWaypoint();
+                    CycleNextWaypoint();
                     timeSinceArrivedAtWaypoint = 0;        
                 }
                 nextPosition = GetCurrentWaypoint();
@@ -103,33 +100,28 @@ namespace RPG.Control
             }
         }
 
-        // checks the distance from the enemy to the current waypoint and returns true if reached within tolerance distance
-        private bool AtWaypoint()
+        private bool IsAtWaypoint()
         {
             float distanceToWaypoint = Vector3.Distance(transform.position, GetCurrentWaypoint());
             return distanceToWaypoint < waypointTolerance;
         }
 
-        // grabs the next available index from the patrol path and stores it here
-        private void CycleWaypoint()
+        private void CycleNextWaypoint()
         {
             currentWaypointIndex = patrolPath.GetNextIndex(currentWaypointIndex);
         }
 
-        // grabs the current waypoint from the patrol path using the index varialbe in this script
         private Vector3 GetCurrentWaypoint()
         {
             return patrolPath.GetWaypoint(currentWaypointIndex);
         }
 
-        // checks if player within attack range
         private bool InAttackRange()
         {
             float DistanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
             return DistanceToPlayer < chaseDistance;
         }
 
-        // draw the radius within unity
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;

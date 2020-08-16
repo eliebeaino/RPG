@@ -14,13 +14,12 @@ namespace RPG.Stats
         Experience experience;
         int currentLevel = 0;
 
-        // cache componenets
         private void Awake()
         {
             experience = GetComponent<Experience>();
         }
 
-        // adds action for exp gain - intialize start level
+        // adds action for exp gain
         private void Start()
         {
             currentLevel = CalculateLevel();
@@ -47,13 +46,25 @@ namespace RPG.Stats
             Instantiate(levelUPVFX, transform);
         }
 
-        // getter for any stat
         public float GetStat(Stat stat)
         {
-            return progression.GetStat(stat, characterClass, GetLevel());
+            return progression.GetStat(stat, characterClass, GetLevel()) + GetAdditiveModifier(stat);
         }
 
-        // getter for level - used for display
+        // TODO - dont understand
+        private float GetAdditiveModifier(Stat stat)
+        {
+            float total = 0;
+            foreach (IModifierProvider provider in GetComponents<IModifierProvider>())
+            {
+                foreach (float modifier in provider.GetAdditiveModifier(stat))
+                {
+                    total += modifier;
+                }
+            }
+            return total;
+        }
+
         public int GetLevel()
         {
             // avoid bug from excecution order of scripts
@@ -64,8 +75,22 @@ namespace RPG.Stats
             return currentLevel;
         }
 
-        public int CalculateLevel()
+        private int CalculateLevel()
         {
+            #region TODELETE
+            // remove this later when we setup XP reset to 0 between levels
+            // placeholder to allow changing levels in inspector for player
+            if (startingLevel != 1)
+            {  
+                int tempLevel = startingLevel;
+                if (experience)
+                {
+                    experience.SetExperience(progression.GetStat(Stat.ExperienceToLevelUp, characterClass, startingLevel - 1));
+                    startingLevel = 1; //This makes the startingLevel work only at the beginning of the scene - so when we gain experience it never checks this statment again
+                }
+                return tempLevel;
+            }
+            #endregion  
 
             if (experience == null) return startingLevel;
             float currentXP = experience.GetExperiencePoints();

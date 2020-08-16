@@ -27,7 +27,6 @@ namespace RPG.Stats
 
         Dictionary<CharacterClass, Dictionary<Stat, float[]>> lookupTable = null;
 
-        // build a dictionary out of all the progression file - once - when first called
         private void BuildLookup()
         {
             if (lookupTable != null) return;
@@ -45,7 +44,6 @@ namespace RPG.Stats
             }
         }
 
-        // gets called everytime we need to check a stat from our progression asset file
         public float GetStat(Stat stat,CharacterClass characterClass, int level)
         {
             BuildLookup();
@@ -60,7 +58,6 @@ namespace RPG.Stats
             return levels[level -  1];
         }
 
-        // getter for the level lenght
         public int GetLevels(Stat stat, CharacterClass characterClass)
         {
             BuildLookup();

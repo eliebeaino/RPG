@@ -6,7 +6,7 @@ namespace RPG.Stats
 {
     public class Experience : MonoBehaviour, ISaveable
     {
-        [SerializeField] float experiencePoints = 0;
+        float experiencePoints = 0;
 
         int currentLevel = 1;
         ExperienceDisplay experienceDisplay;
@@ -25,12 +25,17 @@ namespace RPG.Stats
             UpdateDisplay();
         }
 
-        // Add Experience points
         public void GainExperience(float experience)
         {
             experiencePoints += experience;
             onExperienceGained();
             UpdateDisplay();
+        }
+
+        // TODO - linked to delete info inside
+        public void SetExperience(float experience)
+        {
+            experiencePoints = experience;
         }
 
         // updates experience and lvl on XP gain - and at start of scene
@@ -40,7 +45,6 @@ namespace RPG.Stats
             experienceDisplay.UpdateUIText(currentLevel, experiencePoints);
         }
 
-        // getter for experience
         public float GetExperiencePoints()
         {
             return experiencePoints;

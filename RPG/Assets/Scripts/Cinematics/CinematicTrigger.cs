@@ -17,13 +17,11 @@ namespace RPG.Cinematics
             }
         }
 
-        // save if cinematic is triggered
         public object CaptureState()
         {
             return alreadyTriggered;
         }
 
-        // load bool state of trigger
         public void RestoreState(object state)
         {
             alreadyTriggered = (bool)state;

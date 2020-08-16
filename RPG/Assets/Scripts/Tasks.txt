@@ -1,6 +1,11 @@
 ﻿Changes to make:
 - Change weapon scriptable to ressource folder system
--
+- Changed movement speed from mover to base stats - use IModifier to grab it
 
 Known Bugs:
 -
+
+Keywords:
+TODO
+HEALTH CHANGE
+TODELETE

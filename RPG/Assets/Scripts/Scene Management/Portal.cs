@@ -29,7 +29,6 @@ namespace RPG.SceneManagement
             currentScene = SceneManager.GetActiveScene().buildIndex;
         }
 
-        // checks if collision to player to start the loading functionality
         private void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Player")
@@ -38,7 +37,7 @@ namespace RPG.SceneManagement
             }
         }
 
-        // loads the next scene in the correct spawn point --- fades out -> pause -> fade in new scene
+        // fades out -> pause -> fade in new scene
         IEnumerator Transition()
         {
             // Preserves the object through the scene transition
@@ -58,7 +57,7 @@ namespace RPG.SceneManagement
 
             // find portal in new scene and warp player to new location
             Portal otherPortal = GetOtherPortal();
-            UpdatePlayer(otherPortal);
+            WarpPlayerToSpawnPoint(otherPortal);
 
             // saves the location of last portal used - checkpoint
             savingWrapper.Save();
@@ -71,8 +70,7 @@ namespace RPG.SceneManagement
             Destroy(gameObject); 
         }
 
-        // spawns the player in the spawn point of the new scene spawn point location - preserve ( position & rotation )
-        private void UpdatePlayer(Portal otherPortal)
+        private void WarpPlayerToSpawnPoint(Portal otherPortal)
         {
             GameObject player = GameObject.FindWithTag("Player");
             player.GetComponent<NavMeshAgent>().Warp(otherPortal.spawnPoint.position); // use this to teleport player instead of transform to avoid conflicting bug navmesh

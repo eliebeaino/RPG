@@ -13,22 +13,20 @@ namespace RPG.Combat
             if (other.tag == "Player")
             {
                 other.GetComponent<Fighter>().EquipWeapon(weapon);
-                StartCoroutine(HideForSeconds());
+                StartCoroutine(RespawnPickup());
             }
         }
 
-        // respawn timer for pick up -- sets timer to hide all the pickup componenets necessary for it to function 
-        IEnumerator HideForSeconds()
+        IEnumerator RespawnPickup()
         {
-            ShowPickup(false);
+            ShowOrHidePickup(false);
 
             yield return new WaitForSeconds(respawnTime);
 
-            ShowPickup(true);
+            ShowOrHidePickup(true);
         }
 
-        // iterate between enabling and disabling pickup - collider and child componenets
-        private void ShowPickup(bool shouldShow)
+        private void ShowOrHidePickup(bool shouldShow)
         {
             gameObject.GetComponent<Collider>().enabled = shouldShow;
             foreach (Transform child in transform)
