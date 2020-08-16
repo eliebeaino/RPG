@@ -16,13 +16,14 @@ namespace RPG.Combat
         private void Start()
         {
             transform.LookAt(GetAimLocation());
-            Destroy(gameObject, expirationTime);
         }
 
         private void Update()
         {
-            // moves - rotates the projectiles towards target
-            if (homing && !target.IsDead()) transform.LookAt(GetAimLocation());
+            if (homing && !target.IsDead())
+            {
+                transform.LookAt(GetAimLocation());
+            }
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
 
@@ -31,11 +32,17 @@ namespace RPG.Combat
             this.target = getTarget;
             this.damage = getDamage;
             this.instigator = instigator;
+
+            Destroy(gameObject, expirationTime);
         }    
 
         private Vector3 GetAimLocation()
         {
             CapsuleCollider targetCapsule = target.GetComponent<CapsuleCollider>();
+            if (targetCapsule == null)
+            {
+                return target.transform.position;
+            }
             return target.transform.position + targetCapsule.center;
         }
 

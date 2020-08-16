@@ -34,11 +34,11 @@ namespace RPG.Control
             fighter = GetComponent<Fighter>();
             health = GetComponent<Health>();
             mover = GetComponent<Mover>();
+            player = GameObject.FindWithTag("Player");
         }
 
         private void Start()
         {
-            player = GameObject.FindWithTag("Player"); // TODO Move to awake
             guardPosition = transform.position;
         }
 

@@ -25,7 +25,16 @@ namespace RPG.Resources
             baseStats = GetComponent<BaseStats>();
         }
 
-        // Load base health from progression depending on level
+        private void OnEnable()
+        {
+            baseStats.onLevelUp += IncreaseHPOnLevelUP;
+        }
+
+        private void OnDisable()
+        {
+            baseStats.onLevelUp -= IncreaseHPOnLevelUP;
+        }
+
         // if the character is dead, turns this off(for reloading scenes with dead enemies) -- TODO change this later on for respawns
         private void Start()
         {
@@ -35,7 +44,6 @@ namespace RPG.Resources
             {
                 healthPoints = baseStats.GetStat(Stat.Health);
             }
-            baseStats.onLevelUp += IncreaseHPOnLevelUP;
         }
 
         // HEALTH CHANGE
