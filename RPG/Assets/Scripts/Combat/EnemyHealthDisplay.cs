@@ -4,25 +4,25 @@ namespace RPG.Combat
 {
     public class EnemyHealthDisplay : MonoBehaviour
     {
-        Fighter playerFighter;
+        Fighter fighter;
         Text text;
 
         void Awake()
         {
-            playerFighter = GameObject.FindWithTag("Player").GetComponent<Fighter>();
+            fighter = GameObject.FindWithTag("Player").GetComponent<Fighter>();
             text = GetComponent<Text>();
         }
 
         // TODO change the health display to only change upon a health change
         private void Update()
         {
-            if (playerFighter.GetTarget() == null)
+            if (fighter.GetTarget() == null)
             {
                 text.text = "N/A";
             }
             else
             {
-                text.text = playerFighter.GetTarget().GetHP() + "/" + playerFighter.GetTarget().GetMaxHP().ToString("F0");
+                text.text = fighter.GetTarget().GetHP().ToString("F1") + "/" + fighter.GetTarget().GetMaxHP().ToString("F0");
             }
         }
     }

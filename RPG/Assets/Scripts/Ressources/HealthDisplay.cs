@@ -17,7 +17,7 @@ namespace RPG.Resources
         // TODO change the health display to only change upon a health change
         private void Update()
         {
-            text.text = health.GetHP() + "/" + health.GetMaxHP().ToString("F0");
+            text.text = health.GetHP().ToString("F1") + "/" + health.GetMaxHP().ToString("F0");
         }
     }
 }

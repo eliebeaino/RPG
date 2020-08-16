@@ -25,7 +25,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63ea8506bd6073c45b95f2f2a55cf050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experiencePoints: 0
 --- !u!1001 &1074109721891410231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -393,6 +392,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4902261958870487846, guid: 252b0190d5c11294d86b0547fe375fcb,
         type: 3}
+    - target: {fileID: 2896701797966369163, guid: 734695941bc39a14cb014ab2d6633505,
+        type: 3}
+      propertyPath: useModifiers
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3436966268465961729, guid: 734695941bc39a14cb014ab2d6633505,
         type: 3}
       propertyPath: uniqueIdentifier

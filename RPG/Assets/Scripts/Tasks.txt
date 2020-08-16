@@ -1,9 +1,10 @@
 ﻿Changes to make:
 - Change weapon scriptable to ressource folder system
 - Changed movement speed from mover to base stats - use IModifier to grab it
+- Add Min/Max damage to weapons and adjust calculations accordingly (enemy, weapon, projectile, etc...)
 
 Known Bugs:
--
+- fix rounding bug displaying 0 hp for enemies
 
 Keywords:
 TODO

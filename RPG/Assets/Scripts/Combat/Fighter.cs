@@ -105,20 +105,28 @@ namespace RPG.Combat
             animator.SetTrigger("stopAttack");
         }
 
-        public IEnumerable<float> GetAdditiveModifier(Stat stat)
+        public IEnumerable<float> GetAdditiveModifiers(Stat stat)
         {
-            if (stat == Stat.Damage)
+            if (stat == Stat.PhysicalDamage)
             {
-                yield return currentWeapon.GetWeaponDamage();
+                yield return currentWeapon.GetWeaponPhysicalDamage();
             }
         }
 
-        #region Animation
+        public IEnumerable<float> GetPercentageModifiers(Stat stat)
+        {
+            if (stat == Stat.PhysicalDamage)
+            {
+                yield return currentWeapon.GetWeaponPercentModifier();
+            }
+        }
+
+        #region Animation Triggers Or Related
         private void Hit()
         {
             if (target == null) return;
 
-            float damage = baseStats.GetStat(Stat.Damage);
+            float damage = baseStats.GetStat(Stat.PhysicalDamage);
             if (currentWeapon.HasProjectile())
             {
                 currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage);
