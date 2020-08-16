@@ -7,11 +7,37 @@ namespace RPG.Stats
     {
         [SerializeField] Text levelText;
         [SerializeField] Text xpText;
+        Experience experience;
+        BaseStats baseStats;
 
-        public void UpdateUIText(int currentLevel, float experience)
+        private void Awake()
         {
-            xpText.text = experience.ToString("F0");
-            levelText.text = currentLevel.ToString();
+            GameObject player = GameObject.FindWithTag("Player");
+            experience = player.GetComponent<Experience>();
+            baseStats = player.GetComponent<BaseStats>();
+        }
+
+        private void OnEnable()
+        {
+            experience.onExperienceGained += UpdateUIText;
+            baseStats.onLevelUp += UpdateUIText;
+        }
+
+        private void OnDisable()
+        {
+            experience.onExperienceGained -= UpdateUIText;
+            baseStats.onLevelUp -= UpdateUIText;
+        }
+
+        private void Start()
+        {
+            UpdateUIText();
+        }
+
+        public void UpdateUIText()
+        {
+            xpText.text = experience.GetExperiencePoints().ToString("F0");
+            levelText.text = baseStats.GetLevel().ToString();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using RPG.Core;
+﻿using GameDevTV.Utils;
+using RPG.Core;
 using RPG.Saving;
 using RPG.Stats;
 using System.Collections;
@@ -11,7 +12,7 @@ namespace RPG.Resources
         [SerializeField] float CorpseTimer = 30f;
         [SerializeField] float healthPercentOnLevelUP = 50f;
 
-        float healthPoints = -1f;
+        LazyValue<float> healthPoints;
 
         private bool isDead = false;
         Animator animator;
@@ -23,6 +24,13 @@ namespace RPG.Resources
             animator = GetComponent<Animator>();
             actionScheduler = GetComponent<ActionScheduler>();
             baseStats = GetComponent<BaseStats>();
+
+            healthPoints = new LazyValue<float>(GetInitialHealth);
+        }
+
+        private float GetInitialHealth()
+        {
+            return baseStats.GetStat(Stat.Health);
         }
 
         private void OnEnable()
@@ -39,19 +47,15 @@ namespace RPG.Resources
         private void Start()
         {
             if (isDead) this.gameObject.SetActive(false);
-            // check if health is no longer -1 meaning it was already restored from save file and no longer need to get the base stat
-            if (healthPoints < 0)
-            {
-                healthPoints = baseStats.GetStat(Stat.Health);
-            }
+            healthPoints.ForceInit();
         }
 
         // HEALTH CHANGE
         public void TakeDamage(GameObject instigator, float damage)
         {
             print(gameObject.name + " took " + damage + " damage from " + instigator);
-            healthPoints = Mathf.Max(healthPoints - damage, 0);  // limit minimum health to 0
-            if (healthPoints == 0 && !isDead)
+            healthPoints.value = Mathf.Max(healthPoints.value - damage, 0);  // limit minimum health to 0
+            if (healthPoints.value == 0 && !isDead)
             {
                 AwardExperience(instigator);
                 StartCoroutine(Die());
@@ -79,8 +83,8 @@ namespace RPG.Resources
         private void IncreaseHPOnLevelUP()
         {
             float newMaxHp = baseStats.GetStat(Stat.Health);
-            float newHP = healthPoints + (newMaxHp * healthPercentOnLevelUP / 100);
-            healthPoints = Mathf.Clamp(newHP,0, newMaxHp);
+            float newHP = healthPoints.value + (newMaxHp * healthPercentOnLevelUP / 100);
+            healthPoints.value = Mathf.Clamp(newHP,0, newMaxHp);
         }
 
         public float GetMaxHP()
@@ -90,7 +94,7 @@ namespace RPG.Resources
 
         public float GetHP()
         {
-            return healthPoints;
+            return healthPoints.value;
         }
 
         public bool IsDead()
@@ -108,13 +112,13 @@ namespace RPG.Resources
         #region Save HP
         public object CaptureState()
         {
-            return healthPoints;
+            return healthPoints.value;
         }
 
         public void RestoreState(object state)
         {
-            healthPoints = (float)state;
-            if (healthPoints == 0 && !isDead) this.gameObject.SetActive(false);
+            healthPoints.value = (float)state;
+            if (healthPoints.value == 0 && !isDead) this.gameObject.SetActive(false);
         }
         #endregion
     }
