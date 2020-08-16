@@ -3,6 +3,7 @@ using RPG.Movement;
 using RPG.Saving;
 using UnityEngine;
 using RPG.Resources;
+using RPG.Stats;
 
 namespace RPG.Combat
 {
@@ -20,12 +21,14 @@ namespace RPG.Combat
         Health target;
         Mover mover;
         Animator animator;
+        BaseStats baseStats;
         
         // stores component on awake
         private void Awake()
         {
             mover = GetComponent<Mover>();
             animator = GetComponent<Animator>();
+            baseStats = GetComponent<BaseStats>();
         }
 
         // equips default weapon
@@ -92,7 +95,7 @@ namespace RPG.Combat
         public void EquipWeapon(Weapon weapon)
         {
             currentWeapon = weapon;
-            weapon.Spawn(rightHandTransform, leftHandTransform, animator);
+            weapon.SpawnWpn(rightHandTransform, leftHandTransform, animator);
         }
 
         // getter for target - used to check players current target
@@ -114,14 +117,15 @@ namespace RPG.Combat
         // animation event for melee to deal damage - for ranged attacks to create a projectile from the weapons location and launch towards target
         private void Hit()
         {
+            float damage = baseStats.GetStat(Stat.Damage);
             if (target == null) return;
             if (currentWeapon.HasProjectile())
             {
-                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject);
+                currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage);
             }
             else
             {
-                target.TakeDamage(gameObject, currentWeapon.GetWeaponDamage());
+                target.TakeDamage(gameObject, damage);
             }
         }
 

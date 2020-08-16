@@ -1,5 +1,4 @@
 ﻿using RPG.Resources;
-using System;
 using UnityEngine;
 
 namespace RPG.Combat
@@ -17,13 +16,12 @@ namespace RPG.Combat
 
         const string weaponName = "Weapon";
 
-        // removes previous weapon if any -- spawn new weapon in the correct hand and sets its name to weapon -- changes animator component accordingly
-        public void Spawn(Transform rightHand,Transform leftHand, Animator animator)
+        public void SpawnWpn(Transform rightHand,Transform leftHand, Animator animator)
         {
             DestroyOldWeapon(rightHand, leftHand);
             if (equippedPrefab != null)
             {
-                Transform handTransform = GetTransform(rightHand, leftHand);
+                Transform handTransform = ChooseCorrectHand(rightHand, leftHand);
                 GameObject weapon = Instantiate(equippedPrefab, handTransform);
                 weapon.name = weaponName;
             }
@@ -40,7 +38,6 @@ namespace RPG.Combat
             }
         }
 
-        // destroy previously equipped weapon if exists
         private void DestroyOldWeapon(Transform rightHand, Transform leftHand)
         {
             Transform oldWeapon = rightHand.Find(weaponName);
@@ -54,8 +51,7 @@ namespace RPG.Combat
             Destroy(oldWeapon.gameObject);
         }
 
-        // grabs which hand the weapon uses and set the trasform (set up from inspector)
-        Transform GetTransform(Transform rightHand, Transform leftHand)
+        Transform ChooseCorrectHand(Transform rightHand, Transform leftHand)
         {
             Transform handTransform;
             if (isRightHanded) handTransform = rightHand;
@@ -63,26 +59,22 @@ namespace RPG.Combat
             return handTransform;
         }
 
-        // getter to check if weapon uses projectile system
+        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, GameObject instigator, float calculatedDamage)
+        {
+            Projectile projectielInstrance = Instantiate(projectile, ChooseCorrectHand(rightHand, leftHand).position,Quaternion.identity);
+            projectielInstrance.SetTargetAndDamage(target, instigator , calculatedDamage);
+        }
+
         public bool HasProjectile()
         {
             return projectile != null;
         }
 
-        // fire the projectile - if any exist - from corresponding hand transform unto the target
-        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, GameObject instigator)
-        {
-            Projectile projectielInstrance = Instantiate(projectile, GetTransform(rightHand, leftHand).position,Quaternion.identity);
-            projectielInstrance.SetTargetAndDamage(target, instigator ,weaponDamage);
-        }
-
-        // getter for the weaopon range
         public float GetWeaponRange()
         {
             return weaponRange;
         }
 
-        // getter for the weaopon damage
         public float GetWeaponDamage()
         {
             return weaponDamage;

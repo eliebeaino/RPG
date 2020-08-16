@@ -14,9 +14,10 @@ namespace RPG.Resources
             text = GetComponent<Text>();
         }
 
+        // TODO change the health display to only change upon a health change
         private void Update()
         {
-            text.text = health.GetHealth() + " // " + health.GetPercentageHealth().ToString("F2") + "%";
+            text.text = health.GetHP() + "/" + health.GetMaxHP().ToString("F0");
         }
     }
 }

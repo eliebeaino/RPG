@@ -13,6 +13,7 @@ namespace RPG.Combat
             text = GetComponent<Text>();
         }
 
+        // TODO change the health display to only change upon a health change
         private void Update()
         {
             if (fighter.GetTarget() == null)
@@ -21,7 +22,7 @@ namespace RPG.Combat
             }
             else
             {
-                text.text = fighter.GetTarget().GetHealth() + " // " + fighter.GetTarget().GetPercentageHealth().ToString("F2") + "%";
+                text.text = fighter.GetTarget().GetHP() + "/" + fighter.GetTarget().GetMaxHP().ToString("F0");
             }
         }
     }

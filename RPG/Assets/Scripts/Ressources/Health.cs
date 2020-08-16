@@ -18,7 +18,6 @@ namespace RPG.Resources
         ActionScheduler actionScheduler;
         BaseStats baseStats;
 
-        //cache componenets
         private void Awake()
         {
             animator = GetComponent<Animator>();
@@ -27,7 +26,7 @@ namespace RPG.Resources
         }
 
         // Load base health from progression depending on level
-        // if the character is dead, turns this off(for reloading scenes with dead enemies) -- TODO change this slightly later on for respawns
+        // if the character is dead, turns this off(for reloading scenes with dead enemies) -- TODO change this later on for respawns
         private void Start()
         {
             if (isDead) this.gameObject.SetActive(false);
@@ -39,9 +38,10 @@ namespace RPG.Resources
             baseStats.onLevelUp += IncreaseHPOnLevelUP;
         }
 
-        // called from fighter
+        // HEALTH CHANGE
         public void TakeDamage(GameObject instigator, float damage)
         {
+            print(gameObject.name + " took " + damage + " damage from " + instigator);
             healthPoints = Mathf.Max(healthPoints - damage, 0);  // limit minimum health to 0
             if (healthPoints == 0 && !isDead)
             {
@@ -50,8 +50,6 @@ namespace RPG.Resources
             }
         }
 
-        // set the death animation - cancel the current action in place from the scheduler - turn off the enemy after corpse timer delay
-        // rewards experience
         IEnumerator Die()
         {
             isDead = true;
@@ -62,7 +60,6 @@ namespace RPG.Resources
             this.gameObject.SetActive(false); ;
         }
 
-        // Reward the player with experince by grabbing experience levels from basestats of enemy killed
         private void AwardExperience(GameObject instigator)
         {
             Experience experience = instigator.GetComponent<Experience>();
@@ -70,6 +67,7 @@ namespace RPG.Resources
             experience.GainExperience(baseStats.GetStat(Stat.ExperienceReward));
         }
 
+        // HEALTH CHANGE - on event
         private void IncreaseHPOnLevelUP()
         {
             float newMaxHp = baseStats.GetStat(Stat.Health);
@@ -77,24 +75,21 @@ namespace RPG.Resources
             healthPoints = Mathf.Clamp(newHP,0, newMaxHp);
         }
 
-        // getter for health levels - used for health displays
-        public float GetPercentageHealth()
+        public float GetMaxHP()
         {
-            return healthPoints / baseStats.GetStat(Stat.Health) * 100;
+            return baseStats.GetStat(Stat.Health);
         }
 
-        public float GetHealth()
+        public float GetHP()
         {
             return healthPoints;
         }
 
-        // getter for isdead
         public bool IsDead()
         {
             return isDead;
         }
 
-        // resets the character animator, reset the isDead value
         void Resurrect()
         {
             isDead = false;
@@ -103,17 +98,15 @@ namespace RPG.Resources
         }
 
         #region Save HP
-        // saves health levels of this character
         public object CaptureState()
         {
             return healthPoints;
         }
 
-        // loads health level of this character - check if dead to keep corpse or not dead to reset animator and bool value
         public void RestoreState(object state)
         {
             healthPoints = (float)state;
-            if (healthPoints == 0 && !isDead) StartCoroutine(Die());
+            if (healthPoints == 0 && !isDead) this.gameObject.SetActive(false);
         }
         #endregion
     }

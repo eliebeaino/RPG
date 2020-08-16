@@ -25,7 +25,7 @@ namespace RPG.Stats
             UpdateDisplay();
         }
 
-        // experience point counter
+        // Add Experience points
         public void GainExperience(float experience)
         {
             experiencePoints += experience;
@@ -33,13 +33,14 @@ namespace RPG.Stats
             UpdateDisplay();
         }
 
+        // updates experience and lvl on XP gain - and at start of scene
         private void UpdateDisplay()
         {
             currentLevel = baseStats.GetLevel();
-            experienceDisplay.UpdateUIText(currentLevel);
+            experienceDisplay.UpdateUIText(currentLevel, experiencePoints);
         }
 
-        // getter for experience display
+        // getter for experience
         public float GetExperiencePoints()
         {
             return experiencePoints;
