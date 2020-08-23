@@ -16,7 +16,6 @@ namespace RPG.Combat
         [SerializeField] Transform rightHandTransform = null;
         [SerializeField] Transform leftHandTransform = null;
         [SerializeField] Weapon defaultWeapon = null;
-
         LazyValue<Weapon> currentWeapon;
         float timeSinceLastAttack = Mathf.Infinity;  // allows attack directly upon first contact
         bool isAttacking = false;

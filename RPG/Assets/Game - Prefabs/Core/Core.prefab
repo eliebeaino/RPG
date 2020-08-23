@@ -270,6 +270,16 @@ PrefabInstance:
       propertyPath: movementSpeedFactor
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 796511452086592919, guid: 94b11f6aa1bffb04f879e6c28b6e8e53,
+        type: 3}
+      propertyPath: cursorMappings.Array.data[4].cursorType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 796511452086592919, guid: 94b11f6aa1bffb04f879e6c28b6e8e53,
+        type: 3}
+      propertyPath: cursorMappings.Array.data[4].texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 2e71a8202d3b4a3448ec85ced5a40265, type: 3}
     - target: {fileID: 3376599703740254417, guid: 94b11f6aa1bffb04f879e6c28b6e8e53,
         type: 3}
       propertyPath: m_LocalPosition.x

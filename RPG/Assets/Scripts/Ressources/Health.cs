@@ -4,6 +4,7 @@ using RPG.Saving;
 using RPG.Stats;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RPG.Resources
 {
@@ -11,6 +12,12 @@ namespace RPG.Resources
     {
         [SerializeField] float CorpseTimer = 30f;
         [SerializeField] float healthPercentOnLevelUP = 50f;
+
+        // this is done to show within the inspector the event system and allow a float to be passed
+        [SerializeField] TakeDamageEvent takeDamage;
+        [System.Serializable]
+        public class TakeDamageEvent : UnityEvent<float>
+        { }
 
         LazyValue<float> healthPoints;
 
@@ -43,9 +50,9 @@ namespace RPG.Resources
             baseStats.onLevelUp -= IncreaseHPOnLevelUP;
         }
 
-        // if the character is dead, turns this off(for reloading scenes with dead enemies) -- TODO change this later on for respawns
         private void Start()
         {
+            // if the character is dead, turns this off(for reloading scenes with dead enemies) -- TODO change this later on for respawns
             if (isDead) this.gameObject.SetActive(false);
             healthPoints.ForceInit();
         }
@@ -53,13 +60,15 @@ namespace RPG.Resources
         // HEALTH CHANGE
         public void TakeDamage(GameObject instigator, float damage)
         {
-            print(gameObject.name + " took " + damage + " damage from " + instigator);
+            //print(gameObject.name + " took " + damage + " damage from " + instigator);
             healthPoints.value = Mathf.Max(healthPoints.value - damage, 0);  // limit minimum health to 0
             if (healthPoints.value == 0 && !isDead)
             {
                 AwardExperience(instigator);
                 StartCoroutine(Die());
             }
+
+            takeDamage.Invoke(damage);
         }
 
         IEnumerator Die()
