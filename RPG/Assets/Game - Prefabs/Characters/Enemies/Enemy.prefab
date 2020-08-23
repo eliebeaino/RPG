@@ -85,10 +85,15 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.47108638
       objectReference: {fileID: 0}
-    - target: {fileID: 5953297979347943961, guid: 734695941bc39a14cb014ab2d6633505,
+    - target: {fileID: 2057589437313356173, guid: 734695941bc39a14cb014ab2d6633505,
         type: 3}
-      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.size
+      propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875819922343223499, guid: 734695941bc39a14cb014ab2d6633505,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5953297979347943961, guid: 734695941bc39a14cb014ab2d6633505,
         type: 3}
@@ -97,29 +102,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5953297979347943961, guid: 734695941bc39a14cb014ab2d6633505,
         type: 3}
-      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953297979347943961, guid: 734695941bc39a14cb014ab2d6633505,
-        type: 3}
-      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953297979347943961, guid: 734695941bc39a14cb014ab2d6633505,
-        type: 3}
       propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 5276602053679776999}
     - target: {fileID: 5953297979347943961, guid: 734695941bc39a14cb014ab2d6633505,
         type: 3}
-      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: UpdateHealthBarDisplay
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953297979347943961, guid: 734695941bc39a14cb014ab2d6633505,
-        type: 3}
-      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
+      propertyPath: onDie.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 5276602053679776999}
     - target: {fileID: 8959006930831130659, guid: 734695941bc39a14cb014ab2d6633505,
         type: 3}
       propertyPath: m_RootOrder
@@ -557,7 +547,7 @@ PrefabInstance:
     - target: {fileID: 6643876960420165571, guid: f9d8ee83dab8b384599c2896a5e32163,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6643876960420165571, guid: f9d8ee83dab8b384599c2896a5e32163,
         type: 3}

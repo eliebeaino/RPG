@@ -14,10 +14,14 @@ namespace RPG.Attributes
         [SerializeField] float healthPercentOnLevelUP = 50f;
 
         // this is done to show within the inspector the event system and allow a float to be passed
+        [SerializeField] OnDie onDie;
+        [System.Serializable]
+        public class OnDie : UnityEvent<float> { }
+
+        // this is done to show within the inspector the event system and allow a float to be passed
         [SerializeField] TakeDamageEvent takeDamage;
         [System.Serializable]
-        public class TakeDamageEvent : UnityEvent<float>
-        { }
+        public class TakeDamageEvent : UnityEvent<float> { }
 
         LazyValue<float> healthPoints;
 
@@ -25,12 +29,14 @@ namespace RPG.Attributes
         Animator animator;
         ActionScheduler actionScheduler;
         BaseStats baseStats;
+        Collider colliderr;
 
         private void Awake()
         {
             animator = GetComponent<Animator>();
             actionScheduler = GetComponent<ActionScheduler>();
             baseStats = GetComponent<BaseStats>();
+            colliderr = GetComponent<Collider>();
 
             healthPoints = new LazyValue<float>(GetInitialHealth);
         }
@@ -60,15 +66,21 @@ namespace RPG.Attributes
         // HEALTH CHANGE
         public void TakeDamage(GameObject instigator, float damage)
         {
-            //print(gameObject.name + " took " + damage + " damage from " + instigator);
+            // calculate new health value
             healthPoints.value = Mathf.Max(healthPoints.value - damage, 0);  // limit minimum health to 0
+
+            // Trigger Death Events on 0 hp - awards XP
             if (healthPoints.value == 0 && !isDead)
             {
                 AwardExperience(instigator);
+                onDie.Invoke(damage); // TODO calculate proper final damage to display
                 StartCoroutine(Die());
             }
-
-            takeDamage.Invoke(damage);
+            else
+            {
+                // Trigger Take Damage Event
+                takeDamage.Invoke(damage);
+            }
         }
 
         IEnumerator Die()
@@ -76,6 +88,7 @@ namespace RPG.Attributes
             isDead = true;
             animator.SetTrigger("die");
             actionScheduler.CancelCurrentAction();
+            colliderr.enabled = false;
 
             yield return new WaitForSeconds(CorpseTimer);
             this.gameObject.SetActive(false); ;

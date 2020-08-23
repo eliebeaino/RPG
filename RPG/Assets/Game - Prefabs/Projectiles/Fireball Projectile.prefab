@@ -4889,6 +4889,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fireball Projectile
       objectReference: {fileID: 0}
+    - target: {fileID: 1919315865473017638, guid: 2a502b3380d02ed469a3637bd80d06e4,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: be04e3f4e348d08438b4ce2e92a586d2, type: 3}
+    - target: {fileID: 6959767114381778462, guid: 2a502b3380d02ed469a3637bd80d06e4,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7199144584315017797, guid: 2a502b3380d02ed469a3637bd80d06e4,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 379e40c9ee994864fa1cbcd90934c6a9, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a502b3380d02ed469a3637bd80d06e4, type: 3}
 --- !u!4 &6470877023989814368 stripped

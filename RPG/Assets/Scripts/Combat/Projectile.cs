@@ -1,5 +1,6 @@
 ﻿using RPG.Attributes;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RPG.Combat
 {
@@ -8,6 +9,9 @@ namespace RPG.Combat
         [SerializeField] float speed = 8f;
         [SerializeField] bool homing = false;
         [SerializeField] float expirationTime = 10f;
+        [SerializeField] float lifeAfterImapact = 0.5f;
+
+        [SerializeField] UnityEvent onHit;
 
         Health target;
         GameObject instigator;
@@ -49,9 +53,10 @@ namespace RPG.Combat
         private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponent<Health>() != target) return;
-            if (target.IsDead()) return;
+            if (target.IsDead()) return;     
             target.TakeDamage(instigator, damage);
-            Destroy(gameObject);
+            onHit.Invoke();
+            Destroy(gameObject, lifeAfterImapact);
         }
     }
 }

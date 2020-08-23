@@ -20,15 +20,15 @@ namespace RPG.Attributes
 
         public void UpdateHealthBarDisplay()
         {
+            if (canvas == null) return;
             // if full hp don't display hp bar
             if (Mathf.Approximately (health.GetHP(), health.GetMaxHP()))
             {
-
                 canvas.enabled = false;
                 return;
             }
             // if dead don't display hp bar
-            if (health.IsDead())
+            if (Mathf.Approximately(health.GetHP(),0))
             {
 
                 canvas.enabled = false;
