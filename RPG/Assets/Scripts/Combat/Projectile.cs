@@ -13,8 +13,8 @@ namespace RPG.Combat
 
         [SerializeField] UnityEvent onHit;
 
-        Health target;
-        GameObject instigator;
+        Health target = null;
+        GameObject instigator = null;
         float damage = 0;
         
         private void Start()

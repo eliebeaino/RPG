@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9084661074032087225}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &6171110876264488119
 AudioSource:
@@ -141,8 +141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClips:
-  - {fileID: 8300000, guid: ecb1846d8f5334e4098e073700dc88fb, type: 3}
-  - {fileID: 8300000, guid: 379e40c9ee994864fa1cbcd90934c6a9, type: 3}
+  - {fileID: 8300000, guid: 0d3d7afb5ec538343a9fd9d4235bdefa, type: 3}
+  - {fileID: 8300000, guid: 151fa7778dc9cf14ba998127d188283b, type: 3}
   pitchMin: 0.8
   pitchMax: 1.2
   volumeMin: 0.8
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 9084661074032087225}
   - component: {fileID: 101901841695371220}
   m_Layer: 0
-  m_Name: Equipped Sword
+  m_Name: Equipped Unarmed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,7 +175,6 @@ Transform:
   m_LocalPosition: {x: 0.128, y: 0.036, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4677709459726248223}
   - {fileID: 3635524532280053882}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -206,66 +205,3 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1001 &4677709459725812083
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 9084661074032087225}
-    m_Modifications:
-    - target: {fileID: 129084, guid: 47acc5b26852c45438ce84bf1364dea1, type: 3}
-      propertyPath: m_Name
-      value: SM_Wep_Rapier_01
-      objectReference: {fileID: 0}
-    - target: {fileID: 436332, guid: 47acc5b26852c45438ce84bf1364dea1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436332, guid: 47acc5b26852c45438ce84bf1364dea1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436332, guid: 47acc5b26852c45438ce84bf1364dea1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436332, guid: 47acc5b26852c45438ce84bf1364dea1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436332, guid: 47acc5b26852c45438ce84bf1364dea1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436332, guid: 47acc5b26852c45438ce84bf1364dea1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436332, guid: 47acc5b26852c45438ce84bf1364dea1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 436332, guid: 47acc5b26852c45438ce84bf1364dea1, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436332, guid: 47acc5b26852c45438ce84bf1364dea1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436332, guid: 47acc5b26852c45438ce84bf1364dea1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436332, guid: 47acc5b26852c45438ce84bf1364dea1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 47acc5b26852c45438ce84bf1364dea1, type: 3}
---- !u!4 &4677709459726248223 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 436332, guid: 47acc5b26852c45438ce84bf1364dea1,
-    type: 3}
-  m_PrefabInstance: {fileID: 4677709459725812083}
-  m_PrefabAsset: {fileID: 0}
