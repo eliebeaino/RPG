@@ -2,6 +2,7 @@
 using RPG.Core;
 using RPG.Saving;
 using RPG.Stats;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -107,6 +108,11 @@ namespace RPG.Attributes
             float newMaxHp = baseStats.GetStat(Stat.Health);
             float newHP = healthPoints.value + (newMaxHp * healthPercentOnLevelUP / 100);
             healthPoints.value = Mathf.Clamp(newHP,0, newMaxHp);
+        }
+
+        public void Heal(float healthToRestore)
+        {
+            healthPoints.value = Mathf.Min((healthPoints.value + healthToRestore), GetMaxHP());
         }
 
         public float GetMaxHP()
