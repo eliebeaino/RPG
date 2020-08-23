@@ -19,19 +19,22 @@ namespace RPG.SceneManagement
             canvasGroup.alpha = 1;
         }
 
-        public IEnumerator FadeOut(float time)
+        // setup as coroutine and not as ienumerator so we can call them without yield returning them in portal if we want too
+        // that way they can do the coroutine while doing other stuff too instead of waiting for it to finish
+
+        public Coroutine FadeOut(float time)
         {
             // fade to max alpha
             return Fade(1, time);
         }
 
-        public IEnumerator FadeIn(float time)
+        public Coroutine FadeIn(float time)
         {
             // fade to 0 alpha
             return Fade(0, time);
         }
 
-        public IEnumerator Fade(float target, float time)
+        public Coroutine Fade(float target, float time)
         {
             // sets an active coroutine and stops the old one so fade in/out don't overlap
             if (currentActiveFade != null)
@@ -39,7 +42,7 @@ namespace RPG.SceneManagement
                 StopCoroutine(currentActiveFade);
             }
             currentActiveFade = StartCoroutine(FadeRoutine(target, time));
-            yield return currentActiveFade;
+            return currentActiveFade;
         }    
 
         private IEnumerator FadeRoutine(float target, float time)

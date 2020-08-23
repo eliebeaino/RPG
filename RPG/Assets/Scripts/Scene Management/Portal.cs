@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using RPG.Control;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -43,16 +44,26 @@ namespace RPG.SceneManagement
             // Preserves the object through the scene transition
             DontDestroyOnLoad(gameObject);
 
-            // Fade Out
             Fader fader = FindObjectOfType<Fader>();
+            SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
+
+            // Remove Player Control
+            PlayerController playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+            playerController.enabled = false;
+
+            // Fade Out
             yield return fader.FadeOut(fadeOutTime);
 
             // Saves the game
-            SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
             savingWrapper.Save();
 
             // loads next scene and load the game parameters from the save file
             yield return SceneManager.LoadSceneAsync(currentScene + sceneToLoad);
+
+            // Remove "NEW" Player Control after scene loaded
+            PlayerController newPlayerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+            newPlayerController.enabled = false;
+
             savingWrapper.Load();
 
             // find portal in new scene and warp player to new location
@@ -64,7 +75,10 @@ namespace RPG.SceneManagement
 
             // pause fade screen slightly -> Fade In
             yield return new WaitForSeconds(pauseTimeBetweenFades);
-            yield return fader.FadeIn(fadeInTime);
+            fader.FadeIn(fadeInTime);
+
+            // Restore Player Control
+            newPlayerController.enabled = true;
 
             // remove this portal from the new loaded scene as we no longer need it
             Destroy(gameObject); 
