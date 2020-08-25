@@ -18,7 +18,6 @@ namespace RPG.Combat
         [SerializeField] WeaponConfig defaultWeapon = null;
 
         float timeSinceLastAttack = Mathf.Infinity;  // allows attack directly upon first contact
-        bool isAttacking = false;
 
         Health target;
         Mover mover;
@@ -26,7 +25,9 @@ namespace RPG.Combat
         BaseStats baseStats;
         WeaponConfig currentWeaponConfig;
         LazyValue<Weapon> currentWeapon;
-        
+        bool isAttacking = false;
+
+
         private void Awake()
         {
             mover = GetComponent<Mover>();
@@ -53,7 +54,10 @@ namespace RPG.Combat
             if (target == null) return;
             if (target.IsDead()) return;
 
-            if (!GetIsInRange())
+            // check if the animator is doing attack animation to pause the enemy from moving while doing the attack
+            isAttacking = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Attack");
+
+            if (!GetIsInRange(target.transform) && !isAttacking)
             {
                 mover.MoveTo(target.transform.position);
             }
@@ -75,14 +79,20 @@ namespace RPG.Combat
             }
         }
 
-        private bool GetIsInRange()
+        private bool GetIsInRange(Transform targetTransform)
         {
-            return Vector3.Distance(transform.position, target.transform.position) < currentWeaponConfig.GetWeaponRange();
+            return Vector3.Distance(transform.position, targetTransform.position) < currentWeaponConfig.GetWeaponRange();
         }
 
-        public bool HasValidTarget(GameObject combatTarget)
+        public bool canAttack(GameObject combatTarget)
         {
+            // check for valid target or if target is within range (range of movement && range of attack)
             if (combatTarget == null) return false;
+            if (!mover.canMoveTo(combatTarget.transform.position) &&
+                !GetIsInRange(combatTarget.transform))
+            {
+                return false;
+            }
             Health targetToTest = combatTarget.GetComponent<Health>();
             return targetToTest != null && !targetToTest.IsDead();
         }
@@ -133,9 +143,9 @@ namespace RPG.Combat
             }
         }
 
-        #region Animation Triggers Or Related
         private void Hit()
         {
+            // ANIMATION EVENT
             if (target == null) return;
 
             float damage = baseStats.GetStat(Stat.PhysicalDamage);
@@ -155,24 +165,6 @@ namespace RPG.Combat
                 target.TakeDamage(gameObject, damage);
             }
         }
-
-        private void StopMovement()
-        {
-            mover.SetSpeed(0);
-            isAttacking = true;
-        }
-
-        private void CanMoveAgain()
-        {
-            mover.SetSpeed(1);
-            isAttacking = false;
-        }
-
-        public bool IsAttacking()
-        {
-            return isAttacking;
-        }
-        #endregion
 
         #region Save Weapon
         public object CaptureState()

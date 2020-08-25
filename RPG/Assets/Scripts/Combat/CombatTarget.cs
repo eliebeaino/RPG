@@ -14,12 +14,12 @@ namespace RPG.Combat
 
         public bool HandleRaycast(PlayerController callingController)
         {
-            if (!callingController.GetComponent<Fighter>().HasValidTarget(gameObject))
+            if (!callingController.GetComponent<Fighter>().canAttack(gameObject))
             {
                 return false;
             }
 
-            if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 callingController.GetComponent<Fighter>().Attack(gameObject);
             }

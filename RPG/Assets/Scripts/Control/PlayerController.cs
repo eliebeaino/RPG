@@ -5,7 +5,6 @@ using RPG.Attributes;
 using UnityEngine.EventSystems;
 using System;
 using UnityEngine.AI;
-using Cinemachine.Utility;
 
 namespace RPG.Control
 {
@@ -21,19 +20,17 @@ namespace RPG.Control
         }
 
         [SerializeField] CursorMapping[] cursorMappings = null;
-
+        [SerializeField] float maxNavMeshProjectionDistance = 1f;
+        [SerializeField] float raycastRadius = 1f;
         [SerializeField] float movementSpeedFactor = 1f; // TODO remove when movespeed is implemented in basestats
 
         private Mover mover;
-        Fighter fighter;
         Health health;
-        [SerializeField] float maxNavPathLenght = 40f;
 
         private void Awake()
         {
             mover = GetComponent<Mover>();
             health = GetComponent<Health>();
-            fighter = GetComponent<Fighter>();
         }
 
         void Update()
@@ -75,7 +72,7 @@ namespace RPG.Control
         RaycastHit[] RayCastAllSorted()
         {
             // Sort the raycasthit array in order of proximity to the camera
-            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+            RaycastHit[] hits = Physics.SphereCastAll(GetMouseRay(), raycastRadius);
             float[] distances = new float[hits.Length];
             for (int i = 0; i < hits.Length; i++)
             {
@@ -102,14 +99,16 @@ namespace RPG.Control
 
         private bool InteractWithMovement()
         {
-            Vector3 target;
-            bool hasHit = RaycastNavMesh(out target);
+            Vector3 targetDestination;
+            bool hasHit = RaycastNavMesh(out targetDestination);
 
             if (hasHit)
             {
+                if (!mover.canMoveTo(targetDestination)) return false; //use this line for interactables too
+
                 if (Input.GetMouseButton(0))
                 {
-                    mover.StartMoveAction(target);
+                    mover.StartMoveAction(targetDestination);
                 }
 
                 SetCursor(CursorType.Movement);
@@ -118,9 +117,10 @@ namespace RPG.Control
             return false;
         }
 
-        private bool RaycastNavMesh(out Vector3 target)
+        private bool RaycastNavMesh(out Vector3 targetDestination)
         {
-            target = new Vector3();
+            // raycast on mouse - if hit navmesh - move towards the target destination
+            targetDestination = new Vector3();
 
             RaycastHit hit;
             bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
@@ -128,34 +128,14 @@ namespace RPG.Control
 
             // find the closest valid point on the navmesh
             NavMeshHit navMeshHit;
-            bool navHasHit = NavMesh.SamplePosition(hit.point, out navMeshHit, 1f, NavMesh.AllAreas);
+            bool navHasHit = NavMesh.SamplePosition(hit.point, out navMeshHit, maxNavMeshProjectionDistance, NavMesh.AllAreas);
             if (!navHasHit)
             {
                 return false;
             }
-            target = navMeshHit.position;
-
-
-            // Stores the path, checks if exists || full path to access || path is not long
-            NavMeshPath path = new NavMeshPath();
-            bool hasPath = NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path);
-            if (!hasPath) return false;
-            if (path.status != NavMeshPathStatus.PathComplete) return false;
-            if (GetPathLenght(path) > maxNavPathLenght) return false;
+            targetDestination = navMeshHit.position;
 
             return true;
-        }
-
-        private float GetPathLenght(NavMeshPath path)
-        {
-            float total = 0;
-            if (path.corners.Length < 2) return total;
-
-            for (int i = 0; i < path.corners.Length - 1; i++)
-            {
-                total += Vector3.Distance(path.corners[i], path.corners[i + 1]);
-            }
-            return total;
         }
 
         public void SetCursor(CursorType type)
@@ -178,6 +158,7 @@ namespace RPG.Control
 
         private static Ray GetMouseRay()
         {
+            // returns raycast from cam to mouse position
             return Camera.main.ScreenPointToRay(Input.mousePosition);
         }
     }

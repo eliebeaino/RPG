@@ -6,8 +6,14 @@
 
 Known Bugs:
 - fix rounding bug displaying 0 hp for enemies
+- pick up item without going up close - applies to all interactables
+- after picking up item, moves to the point where they were - due to movement being getmousebutton - not getmosuebuttondown - must find workaround
+- ally aggro and self aggro need fixing, unintended behaviors
 
 Keywords:
--TODO
--HEALTH CHANGE
--TODELETE
+- TODO
+- HEALTH CHANGE
+- TODELETE
+- UNITY EVENT
+- TEMP
+- ANIMATION EVENT

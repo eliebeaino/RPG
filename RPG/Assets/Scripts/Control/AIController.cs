@@ -5,6 +5,7 @@ using UnityEngine;
 using RPG.Core;
 using GameDevTV.Utils;
 using System;
+using UnityEngine.AI;
 
 namespace RPG.Control
 {
@@ -12,7 +13,9 @@ namespace RPG.Control
     {
         [Header("General")]
         [SerializeField] float chaseDistance = 5f;
-        [SerializeField] float suspicionTime = 3f;
+        [SerializeField] float shoutDistance = 5f;
+        [SerializeField] float suspicionTime = 5f;
+        [SerializeField] float aggroCooldownTime = 5f;
         [SerializeField] float chaseSpeedFactor = 0.5f;
 
         [Header("Patrol")]
@@ -29,7 +32,11 @@ namespace RPG.Control
         LazyValue<Vector3> guardPosition;
         float timeSinceLastSawPlayer = Mathf.Infinity;
         float timeSinceArrivedAtWaypoint = Mathf.Infinity;
+        float timeSinceLastAggro = Mathf.Infinity;
         int currentWaypointIndex = 0;
+        bool hasBeenAggroedRecently = false;
+        bool hasBeenAggroedByAlly = false;
+
 
         private void Awake()
         {
@@ -52,35 +59,94 @@ namespace RPG.Control
 
         private void Update()
         {
-            if (health.IsDead() || fighter.IsAttacking()) return;  // stops everything when dead
+            if (health.IsDead()) return;  // stops everything when dead
 
-            if (InAttackRange() && fighter.HasValidTarget(player))
+            if (IsAggroed() && fighter.canAttack(player))
             {
+                // if aggro the player and player is attackable
                 AttackBehavior();
             }
             else if (timeSinceLastSawPlayer < suspicionTime)
             {
-                SuspiciousBehavior();
+                // if last seen player too long - stop the chase and stand in place doing nothing
+                SuspiciousBehavior(); // TODO chance this behavior for enemies to run back to guard position immediately
             }
             else
             {
+                // patrol or move back to guarding position
                 PatrolBehavior();
             }
 
             UpdateTimer();
+            AggroRestter();
         }
 
         private void UpdateTimer()
         {
+            // update AI counters connstantly - unless dead
             timeSinceLastSawPlayer += Time.deltaTime;
             timeSinceArrivedAtWaypoint += Time.deltaTime;
+            timeSinceLastAggro += Time.deltaTime;            
+        }
+
+        private void AggroRestter()
+        {
+            // checks last aggro time and last time the player was seen - the second check is done to avoid enemies loop feeding aggro to each other
+            if (timeSinceLastAggro > aggroCooldownTime)
+            {
+                hasBeenAggroedRecently = false;
+            }
+        }
+
+        public void Aggro()
+        {
+            // UNITY EVENT aggros the player when attacked
+            // resets aggro timer
+            timeSinceLastAggro = 0;
+            hasBeenAggroedRecently = true;
+        }
+
+        private void AggroAllies()
+        {
+            // shouts to nearby ally enemies to attack the player - triggers itself as well
+            if (hasBeenAggroedByAlly == true) return;
+            timeSinceLastAggro = 0f;
+            hasBeenAggroedByAlly = true;
+        }
+
+        private void AggroNearbyAllies()
+        {
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position, shoutDistance, Vector3.up, 0);
+            foreach (RaycastHit hit in hits)
+            {
+                AIController ai = hit.transform.GetComponent<AIController>();
+                if (ai == null || ai == this) continue;
+                ai.AggroAllies();
+            }
+        }
+
+        private bool IsAggroed()
+        {
+            // check if its attacked and aggros the player if attacked
+            if (timeSinceLastAggro < aggroCooldownTime) return true;
+
+            // check the distance if within aggro range
+            float DistanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            return DistanceToPlayer < chaseDistance;
         }
 
         private void AttackBehavior()
         {
+            // resets last seen timer - attacks the player - set the movement speed - shouts nearby enemies to attack
+            if (!hasBeenAggroedRecently)
+            {
+                Aggro();
+            }
             timeSinceLastSawPlayer = 0;
             fighter.Attack(player);
             mover.SetSpeed(chaseSpeedFactor);
+
+            AggroNearbyAllies();
         }
 
         private void SuspiciousBehavior()
@@ -88,9 +154,9 @@ namespace RPG.Control
             GetComponent<ActionScheduler>().CancelCurrentAction();
         }
 
-        // patrol along path or go back to guard position
         private void PatrolBehavior()
         {
+            // patrol along path or go back to guard position
             Vector3 nextPosition = guardPosition.value;
             if (patrolPath != null)
             {
@@ -105,6 +171,12 @@ namespace RPG.Control
             if (timeSinceArrivedAtWaypoint > waypointDwellTime)
             {
                 mover.StartMoveAction(nextPosition);
+            }
+
+            if (Vector3.Distance(transform.position, nextPosition) <waypointTolerance)
+            {
+                hasBeenAggroedRecently = false;
+                hasBeenAggroedByAlly = false;
             }
         }
 
@@ -122,12 +194,6 @@ namespace RPG.Control
         private Vector3 GetCurrentWaypoint()
         {
             return patrolPath.GetWaypoint(currentWaypointIndex);
-        }
-
-        private bool InAttackRange()
-        {
-            float DistanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-            return DistanceToPlayer < chaseDistance;
         }
 
         private void OnDrawGizmosSelected()
