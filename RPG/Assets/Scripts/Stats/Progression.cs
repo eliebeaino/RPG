@@ -7,13 +7,13 @@ namespace RPG.Stats
     public class Progression : ScriptableObject
     {
         #region Inspector Serialize Arrays & Classes
-        [SerializeField] ProgressionCharacterClass[] characterClasses;
+        [SerializeField] ProgressionCharacterClass[] characterClasses = null;
 
         [System.Serializable]
         class ProgressionCharacterClass
         {
             public CharacterClass characterClass;
-            public ProgressionStat[] stats;
+            public ProgressionStat[] stats = null;
 
         }
 
@@ -21,7 +21,7 @@ namespace RPG.Stats
         class ProgressionStat
         {
             public Stat stat;
-            public float[] levels;
+            public float[] levels = null;
         }
         #endregion
 

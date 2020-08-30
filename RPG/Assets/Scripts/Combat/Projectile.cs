@@ -11,7 +11,7 @@ namespace RPG.Combat
         [SerializeField] float expirationTime = 10f;
         [SerializeField] float lifeAfterImapact = 0.5f;
 
-        [SerializeField] UnityEvent onHit;
+        [SerializeField] UnityEvent onHit = null;
 
         Health target = null;
         GameObject instigator = null;

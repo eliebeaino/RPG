@@ -15,12 +15,12 @@ namespace RPG.Attributes
         [SerializeField] float healthPercentOnLevelUP = 50f;
 
         // this is done to show within the inspector the event system and allow a float to be passed
-        [SerializeField] OnDie onDie;
+        [SerializeField] OnDie onDie = null;
         [System.Serializable]
         public class OnDie : UnityEvent<float> { }
 
         // this is done to show within the inspector the event system and allow a float to be passed
-        [SerializeField] TakeDamageEvent takeDamage;
+        [SerializeField] TakeDamageEvent takeDamage = null;
         [System.Serializable]
         public class TakeDamageEvent : UnityEvent<float> { }
 

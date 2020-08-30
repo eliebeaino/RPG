@@ -5,10 +5,10 @@ namespace RPG.Stats
 {
     public class ExperienceDisplay : MonoBehaviour
     {
-        [SerializeField] Text levelText;
-        [SerializeField] Text xpText;
-        Experience experience;
-        BaseStats baseStats;
+        [SerializeField] Text levelText = null;
+        [SerializeField] Text xpText = null;
+        Experience experience = null;
+        BaseStats baseStats = null;
 
         private void Awake()
         {
