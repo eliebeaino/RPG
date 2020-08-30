@@ -28,8 +28,9 @@ MonoBehaviour:
   - cursorType: 4
     texture: {fileID: 2800000, guid: f8c873f1e53e83f4aabf342d6be1dfc3, type: 3}
     hotspot: {x: 0, y: 0}
+  maxNavMeshProjectionDistance: 1
+  raycastRadius: 1
   movementSpeedFactor: 1
-  maxNavPathLenght: 40
 --- !u!114 &5995785780435574627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +399,21 @@ PrefabInstance:
       propertyPath: leftHandTransform
       value: 
       objectReference: {fileID: 1074109721891813595}
+    - target: {fileID: 2004291713596598449, guid: 734695941bc39a14cb014ab2d6633505,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.04401779
+      objectReference: {fileID: 0}
+    - target: {fileID: 2004291713596598449, guid: 734695941bc39a14cb014ab2d6633505,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2004291713596598449, guid: 734695941bc39a14cb014ab2d6633505,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2896701797966369163, guid: 734695941bc39a14cb014ab2d6633505,
         type: 3}
       propertyPath: characterClass
@@ -427,7 +443,7 @@ PrefabInstance:
     - target: {fileID: 8959006930831130659, guid: 734695941bc39a14cb014ab2d6633505,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9127899730475189881, guid: 734695941bc39a14cb014ab2d6633505,
         type: 3}
