@@ -31,6 +31,8 @@ MonoBehaviour:
   maxNavMeshProjectionDistance: 1
   raycastRadius: 1
   movementSpeedFactor: 1
+  cursorHighlightPrefab: {fileID: 3081842622838478019, guid: b7a1189e4e450dc4c906d83ff9f19403,
+    type: 3}
 --- !u!114 &5995785780435574627
 MonoBehaviour:
   m_ObjectHideFlags: 0

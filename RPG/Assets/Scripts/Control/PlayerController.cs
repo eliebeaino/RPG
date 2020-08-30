@@ -23,6 +23,7 @@ namespace RPG.Control
         [SerializeField] float maxNavMeshProjectionDistance = 1f;
         [SerializeField] float raycastRadius = 1f;
         [SerializeField] float movementSpeedFactor = 1f; // TODO remove when movespeed is implemented in basestats
+        [SerializeField] ParticleSystem cursorHighlightPrefab = null;
 
         private Mover mover;
         Health health;
@@ -106,15 +107,24 @@ namespace RPG.Control
             {
                 if (!mover.canMoveTo(targetDestination)) return false; //use this line for interactables too
 
-                if (Input.GetMouseButton(0))
+                if (Input.GetMouseButtonDown(0))
                 {
                     mover.StartMoveAction(targetDestination);
+                    ShowMoveLocation(targetDestination);
                 }
 
                 SetCursor(CursorType.Movement);
                 return true;
             }
             return false;
+        }
+
+        private void ShowMoveLocation(Vector3 targetDestination)
+        {
+            var cursorHighlight = Instantiate(cursorHighlightPrefab, targetDestination, Quaternion.identity);
+            // plays particle effect on cursor location
+            cursorHighlight.transform.position = targetDestination;
+            cursorHighlight.Play();
         }
 
         private bool RaycastNavMesh(out Vector3 targetDestination)
